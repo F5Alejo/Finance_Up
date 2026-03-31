@@ -1,0 +1,218 @@
+:root {
+    --primary-green: #2bd46f;
+    --dark-green: #25b860;
+    --light-bg: #f5f6f8;
+    --text-main: #111;
+    --text-muted: #666;
+    --border-color: #e2e4e8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+.logo-header {
+    margin-bottom: 30px;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+.logo-header img {
+    height: 80px;
+    width: 300px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    background: transparent;
+}
+
+.login-card {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    min-height: 550px;
+    gap: 30px;
+}
+
+/* --- Columna Izquierda (Formulario) --- */
+.form-section {
+    flex: 1.1;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    padding: 50px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* --- Columna Derecha --- */
+.welcome-section {
+    flex: 0.9;
+    background-color: #a4ceaf;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 40px 0 40px;  /* Sin padding inferior para que la imagen llegue al borde */
+    color: #000;
+    overflow: hidden;
+}
+
+h2 { margin-bottom: 8px; font-size: 24px; color: var(--text-main); }
+.subtitle { color: var(--text-muted); margin-bottom: 30px; font-size: 0.95em; }
+
+.input-group { margin-bottom: 20px; }
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.85em;
+    color: var(--text-main);
+}
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.input-group input:focus { border-color: var(--primary-green); }
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85em;
+    margin-bottom: 25px;
+}
+.form-options label {
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+.forgot-link { color: var(--primary-green); text-decoration: none; font-weight: 600; }
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-primary:hover { background-color: var(--dark-green); }
+
+.signup-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85em;
+    color: var(--text-muted);
+}
+.signup-text a { color: var(--primary-green); text-decoration: none; font-weight: 600; }
+
+.social-login { margin-top: 25px; }
+.social-login p {
+    font-size: 0.85em;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-social {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-social:hover { background-color: #f9f9f9; }
+.btn-social img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.welcome-content {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.welcome-content h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.welcome-content p {
+    font-size: 0.95em;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.illustration-placeholder {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.illustration-placeholder img {
+    width: 320px;          /* Ocupa todo el ancho del card */
+    max-width: 500px;      /* Sin límite para que llene el espacio */
+    height: auto;         /* Altura proporcional */
+    display: block;
+    object-fit: contain;
+    object-position: bottom;
+}
+
+/* Barra verde inferior */
+body::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: var(--dark-green);
+}

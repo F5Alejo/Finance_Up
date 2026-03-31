@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Up - Iniciar Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <!-- Google Fonts para que se vea profesional -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Logo Superior -->
+        <header class="logo-header">
+            <img src="{{ url_for('static', filename='img/img_logo_name.jpg') }}" alt="Finance Up Logo">
+        </header>
+
+        <div class="login-card">
+            <!-- Sección Izquierda: Formulario -->
+            <section class="form-section">
+                <h2>Iniciar sesión</h2>
+                <p class="subtitle">Ingresa tus datos para acceder a tu cuenta.</p>
+                
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label><input type="checkbox"> Recordarme</label>
+                        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Ingresar</button>
+                </form>
+
+                <p class="signup-text">¿No tienes cuenta? <a href="#">Crear cuenta</a></p>
+
+                <div class="social-login">
+                    <p>O ingresar con</p>
+                    <div class="social-buttons">
+                        <button class="btn-social"><img src="{{ url_for('static', filename='img/img_google.png') }}" alt="Gmail"> Gmail</button>
+                        <button class="btn-social"><img src="{{ url_for('static', filename='img/img_apple.png') }}" alt="Apple"> Apple</button>
+                        <button class="btn-social"><img src="{{ url_for('static', filename='img/img_facebook.png') }}" alt="Facebook"> Facebook</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Derecha: Bienvenida e Imagen -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h3>Bienvenido a Finance Up</h3>
+                    <p>Tu centro de control financiero en un solo lugar.</p>
+                    <!-- Aquí iría tu ilustración de las plantas/monedas -->
+                    <div class="illustration-placeholder">
+                        <img src="{{ url_for('static', filename='img/plantas_login.png') }}" alt="Finanzas">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>
