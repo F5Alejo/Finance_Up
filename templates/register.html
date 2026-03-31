@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Up - Crear Cuenta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Logo Superior -->
+        <header class="logo-header">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Finance Up Logo">
+        </header>
+
+        <div class="login-card">
+            <!-- Sección Izquierda: Formulario de Registro -->
+            <section class="form-section">
+                <div class="header-row">
+                    <h2>Crear cuenta</h2>
+                    <span class="badge-step">Paso 1 de 2</span>
+                </div>
+                <p class="subtitle">Regístrate para acceder a tu puntaje, educación financiera y recomendaciones personalizadas.</p>
+                
+                <form action="/register" method="POST">
+                    <!-- Fila doble: Nombre y Apellido -->
+                    <div class="input-row">
+                        <div class="input-group">
+                            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                    </div>
+
+                    <!-- Fila doble: Contraseñas -->
+                    <div class="input-row">
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Vuelve a escribirla" required>
+                        </div>
+                    </div>
+
+                    <div class="terms-box">
+                        Al registrarte aceptas los Términos y la Política de Privacidad. Operamos en Colombia.
+                    </div>
+
+                    <div class="action-row">
+                        <button type="submit" class="btn-primary">Crear cuenta</button>
+                        <!-- Este botón te devuelve al login -->
+                        <a href="/" class="btn-secondary">Volver</a> 
+                    </div>
+                </form>
+
+                <div class="social-login">
+                    <p>O registrarte con</p>
+                    <div class="social-buttons">
+                        <button class="btn-social"><img src="{{ url_for('static', filename='img/google.png') }}" alt="Gmail"> Gmail</button>
+                        <button class="btn-social"><img src="{{ url_for('static', filename='img/apple.png') }}" alt="Apple"> Apple</button>
+                        <button class="btn-social"><img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook"> Facebook</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Derecha: Beneficios (Diseño actualizado) -->
+            <section class="welcome-section benefits-card">
+                <h3>Beneficios al unirte</h3>
+                
+                <ul class="benefits-list">
+                    <li>
+                        <span class="check-circle">✓</span>
+                        <p>Consulta tu puntaje y tendencias de crédito en Colombia.</p>
+                    </li>
+                    <li>
+                        <span class="check-circle">✓</span>
+                        <p>Contenido educativo para mejorar tu vida financiera.</p>
+                    </li>
+                    <li>
+                        <span class="check-circle">✓</span>
+                        <p>Recomendaciones y alianzas con entidades financieras.</p>
+                    </li>
+                    <li>
+                        <span class="check-circle">✓</span>
+                        <p>Seguridad y control de tus datos personales.</p>
+                    </li>
+                </ul>
+
+                <div class="benefits-buttons">
+                    <a href="/" class="btn-white">Ya tengo cuenta</a>
+                    <button class="btn-primary">Continuar</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
