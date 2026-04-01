@@ -28,3 +28,5 @@ Pwa en desarrollo
     `App = Flask(__name__)` : Inicializamos el servidor web con el parametro `__name__`, indica en que directorio esta para encontrar las carpetas secundarias
     `@app.route('/')`: Da la instruccion donde definimos la funcion para encontrar el login.html y unirlo al usuario para que se lo entregue al usuario
     `app.run(debug=True, port=5000)`: Nos indica donde vemos la pagina en local (127.0.0.1), el debug cada vez que se modifique, se guarden los cambios y no se tenga que reiniciar el servidor, para encender el servidor debemos runear el codigo
+    `@app.route('simulate/google or facebook or apple)`: Nos redirije al mock de alguno de estos 3 para iniciar o crear cuenta
+    `@app.route('/auth/facebook/success')`: Nos da la "autenticacion" al crear o iniciar una cuenta con apple, facebook o google

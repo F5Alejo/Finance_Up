@@ -1,0 +1,108 @@
+/* =========================================
+   SIMULACIÓN DE LOGIN DE GOOGLE
+   ========================================= */
+
+body {
+    background-color: #202124; /* Fondo oscuro clásico de Google */
+    color: #e8eaed;
+    font-family: 'Roboto', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.google-card {
+    background-color: #131314; /* Color de la tarjeta */
+    border-radius: 28px;
+    padding: 35px 40px;
+    width: 850px;
+    display: flex;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+.left-col, .right-col {
+    flex: 1; /* Divide en dos partes iguales */
+    display: flex;
+    flex-direction: column;
+}
+
+.google-logo {
+    width: 48px;
+    margin-bottom: 15px;
+}
+
+.left-col h1 {
+    font-size: 36px;
+    font-weight: 400;
+    margin: 0 0 15px 0;
+}
+
+.left-col .subtitle {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #e8eaed;
+    margin: 0;
+}
+
+.google-input {
+    width: 100%;
+    padding: 16px 14px;
+    border-radius: 4px;
+    border: 1px solid #5f6368;
+    background: transparent;
+    color: #e8eaed;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.google-input:focus {
+    outline: none;
+    border-color: #8ab4f8;
+    border-width: 2px;
+    padding: 15px 13px; /* Compensa el borde más grueso */
+}
+
+.link {
+    color: #8ab4f8; /* Azul característico de enlaces de Google */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.guest-text {
+    font-size: 14px;
+    color: #9aa0a6;
+    margin: 40px 0;
+    line-height: 1.5;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Empuja los botones hacia abajo */
+}
+
+.btn-next {
+    background-color: #a8c7fa; /* Azul clarito del botón */
+    color: #0c2756;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-next:hover {
+    background-color: #b9d4ff;
+}
