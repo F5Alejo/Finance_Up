@@ -65,7 +65,7 @@ body {
 /* --- Columna Derecha --- */
 .welcome-section {
     flex: 0.9;
-    background-color: #a4ceaf;
+    background-color: #3EA71D57;
     border-radius: 16px;
     display: flex;
     flex-direction: column;

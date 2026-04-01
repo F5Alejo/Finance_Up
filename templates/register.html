@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance Up - Crear Cuenta</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="main-container">
         <!-- Logo Superior -->
         <header class="logo-header">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Finance Up Logo">
+            <img src="{{ url_for('static', filename='img/logo_name.jpg') }}" alt="Finance Up Logo">
         </header>
 
         <div class="login-card">
@@ -54,7 +55,6 @@
 
                     <div class="action-row">
                         <button type="submit" class="btn-primary">Crear cuenta</button>
-                        <!-- Este botón te devuelve al login -->
                         <a href="/" class="btn-secondary">Volver</a> 
                     </div>
                 </form>
@@ -69,28 +69,30 @@
                 </div>
             </section>
 
-            <!-- Sección Derecha: Beneficios (Diseño actualizado) -->
+            <!-- Sección Derecha: Beneficios -->
             <section class="welcome-section benefits-card">
-                <h3>Beneficios al unirte</h3>
-                
-                <ul class="benefits-list">
-                    <li>
-                        <span class="check-circle">✓</span>
-                        <p>Consulta tu puntaje y tendencias de crédito en Colombia.</p>
-                    </li>
-                    <li>
-                        <span class="check-circle">✓</span>
-                        <p>Contenido educativo para mejorar tu vida financiera.</p>
-                    </li>
-                    <li>
-                        <span class="check-circle">✓</span>
-                        <p>Recomendaciones y alianzas con entidades financieras.</p>
-                    </li>
-                    <li>
-                        <span class="check-circle">✓</span>
-                        <p>Seguridad y control de tus datos personales.</p>
-                    </li>
-                </ul>
+                <div>
+                    <h3>Beneficios al unirte</h3>
+                    
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="check-circle">✓</span>
+                            <p>Consulta tu puntaje y tendencias de crédito en Colombia.</p>
+                        </li>
+                        <li>
+                            <span class="check-circle">✓</span>
+                            <p>Contenido educativo para mejorar tu vida financiera.</p>
+                        </li>
+                        <li>
+                            <span class="check-circle">✓</span>
+                            <p>Recomendaciones y alianzas con entidades financieras.</p>
+                        </li>
+                        <li>
+                            <span class="check-circle">✓</span>
+                            <p>Seguridad y control de tus datos personales.</p>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="benefits-buttons">
                     <a href="/" class="btn-white">Ya tengo cuenta</a>
