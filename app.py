@@ -23,23 +23,40 @@ def simulate_apple():
 @app.route('/auth/apple/success')
 def apple_success():
     # Simulamos que Apple nos devolvió al usuario con éxito
-    return "<h1>¡Éxito!</h1><p>Has iniciado sesión con Apple (Simulación). Redirigiendo a tu perfil...</p>"
+    return "<p>Has iniciado sesión con Apple (Simulación). Redirigiendo a tu perfil...</p>"
 
 @app.route('/simulate/google')
-def simulate_google():
-    return render_template('simulate_google.html')
+def simulate_google(): 
+    return render_template('simulate_google.html') # Esta página será la que diseñaremos igual a la de google
 
 @app.route('/auth/google/success')
 def google_succes():
-    return "<h1>¡Éxito!</h1><p>Has iniciado sesión con Google (Simulación). Redirigiendo a tu perfil...</p>"
+    return "<p>Has iniciado sesión con Google (Simulación). Redirigiendo a tu perfil...</p>"
 
 @app.route('/simulate/facebook')
 def simulate_facebook():
-    return render_template('simulate_facebook.html')
+    return render_template('simulate_facebook.html') # Esta página será la que diseñaremos igual a la de facebook
 
 @app.route('/auth/facebook/success')
 def facebook_succes():
-    return "<h1>¡Éxito!</h1><p>Has iniciado sesión con Google (Simulación). Redirigiendo a tu perfil...</p>"
+    return "<p>Has iniciado sesión con Google (Simulación). Redirigiendo a tu perfil...</p>"
+
+@app.route('/verify')
+def verify():
+    correo_registrado = "lugocamilo580@gmail.com"
+    return render_template ('verify.html', email=correo_registrado)
+
+@app.route('/recover-account')
+def recover_account():
+    return render_template('recover_account.html')
+
+@app.route('/confirm-recovery')
+def confirm_recovery():
+    return render_template('confirm_recovery.html')
+
+@app.route('/new-password')
+def new_password():
+    return render_template('new_password.html')
 
 if __name__ == '__main__': #TIENE QUE IR DE ULTIMO <-----------------------
     app.run(debug=True, port=5000)

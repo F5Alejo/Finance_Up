@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar contraseña - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='recover.css') }}">
+</head>
+<body>
+
+    <header class="logo-header">
+        <a href="/" class="logo-text">
+            <span class="logo-finance">Finance</span>
+            <span class="logo-up">Up<span class="logo-arrow"><sup>↑</sup></span></span>
+        </a>
+    </header>
+
+    <div class="recovery-container recovery-container--step2">
+        
+        <div class="form-section">
+            <div class="header-title">
+                <h2>Recuperar contraseña</h2>
+                <span class="step-badge">Paso 2 de 2</span>
+            </div>
+            
+            <p class="subtitle">Ingresa el código que recibiste en tu correo.</p>
+            
+            <input type="text" class="recovery-input" placeholder="Código de verificación" maxlength="6" required>
+            
+            <div class="button-group">
+                <a href="/new-password" class="btn btn-primary">Verificar e ingresar</a>
+                <button class="btn btn-secondary" onclick="alert('Código reenviado')">Reenviar código</button>
+                <a href="/recover-account" class="btn btn-secondary">Regresar</a>
+            </div>
+
+            <div class="text-tip">
+                Se envió el código al correo lugocamilo590@gmail.com <br>
+                ¿No es tu correo? <a href="/recover-account" style="color: var(--primary-green); text-decoration: none; font-weight: bold;">Cambiar email</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

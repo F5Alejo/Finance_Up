@@ -34,12 +34,36 @@ body {
 }
 
 .logo-header img {
-    height: 80px;
-    width: 300px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-    background: transparent;
+    display: none;
+}
+
+.logo-text {
+    display: inline-flex;
+    align-items: baseline;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.logo-finance {
+    color: #2ecc40;
+    font-style: italic;
+}
+
+.logo-up {
+    color: #111;
+    font-style: italic;
+    margin-left: 6px;
+    position: relative;
+}
+
+.logo-arrow {
+    font-size: 22px;
+    color: #111;
+    font-style: normal;
+    vertical-align: super;
+    margin-left: 1px;
 }
 
 .login-card {
@@ -204,15 +228,4 @@ h2 { margin-bottom: 8px; font-size: 24px; color: var(--text-main); }
     display: block;
     object-fit: contain;
     object-position: bottom;
-}
-
-/* Barra verde inferior */
-body::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background-color: var(--dark-green);
 }

@@ -1,0 +1,202 @@
+/* =========================================
+   PANTALLA DE VERIFICACIÓN (PASO 2)
+   ========================================= */
+/* Variables de color para que coincidan con el Login */
+:root {
+    --primary-green: #2bd46f;
+    --text-main: #111;
+}
+
+/* Diseño del Logo Finance Up en texto */
+.logo-header {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+.logo-text {
+    display: inline-flex;
+    align-items: baseline;
+    font-size: 42px; /* Ajusta este tamaño si lo quieres más pequeño */
+    font-weight: 800;
+}
+
+.logo-finance {
+    color: var(--text-main);
+}
+
+.logo-up {
+    color: var(--primary-green);
+    position: relative;
+}
+
+.logo-arrow {
+    font-size: 0.6em;
+    vertical-align: super;
+    margin-left: 2px;
+}
+
+body {
+    background-color: #f4f5f7;
+    font-family: 'Arial', sans-serif; /* Cambia a tu fuente si usas una específica */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.top-logo {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    width: 250px; /* Ajusta según el tamaño de tu logo */
+}
+
+.verify-container {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    width: 900px;
+    max-width: 95%;
+    overflow: hidden; /* Para que las esquinas redondeadas apliquen al fondo verde */
+}
+
+/* --- LADO IZQUIERDO --- */
+.verify-left {
+    flex: 1.2;
+    padding: 50px;
+}
+
+.header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-title h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #000;
+}
+
+.step-badge {
+    background-color: #f0f0f0;
+    color: #666;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.verify-input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.email-info {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.email-info a {
+    color: #2e8b57; /* Verde oscuro */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn-verify {
+    flex: 1;
+    background-color: #20c968; /* Verde principal */
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-verify:hover {
+    background-color: #1ba856;
+}
+
+.btn-resend {
+    flex: 1;
+    background-color: #e9ecef;
+    color: #333;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-resend:hover {
+    background-color: #dee2e6;
+}
+
+.alert-box {
+    background-color: #b3dfb3; /* Verde clarito */
+    color: #2d5a2d;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.btn-sms {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* --- LADO DERECHO --- */
+.verify-right {
+    flex: 1;
+    background-color: #aecdab; /* Verde del diseño */
+    padding: 50px 40px;
+    color: #000;
+}
+
+.verify-right h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+.verify-right p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}

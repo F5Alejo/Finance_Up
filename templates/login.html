@@ -12,7 +12,9 @@
     <div class="main-container">
         <!-- Logo Superior -->
         <header class="logo-header">
-            <img src="{{ url_for('static', filename='img/logo_name.png') }}" alt="Finance Up Logo">
+            <div class="logo-text">
+                <span class="logo-finance">Finance</span><span class="logo-up">Up<sup class="logo-arrow">↑</sup></span>
+            </div>
         </header>
 
         <div class="login-card">
@@ -34,7 +36,7 @@
 
                     <div class="form-options">
                         <label><input type="checkbox"> Recordarme</label>
-                        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                        <a href="/recover-account" class="forgot-link">¿Olvidaste tu contraseña?</a>
                     </div>
 
                     <button type="submit" class="btn-primary">Ingresar</button>

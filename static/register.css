@@ -119,28 +119,28 @@
 /* Botones en la zona inferior de la tarjeta verde */
 .benefits-buttons {
     display: flex;
-    gap: 15px;
     width: 100%;
     margin-top: 40px;
 }
 
 .btn-white {
-    flex: 1;
-    background-color: white;
-    color: var(--text-main);
+    width: 100%; /* Hace que ocupe todo el espacio disponible */
+    display: block; /* Asegura que se comporte como un bloque entero */
+    background-color: #ffffff;
+    color: #1b4d31; /* El texto en verde oscuro */
     text-align: center;
-    padding: 14px;
+    padding: 15px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95em;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    transition: background-color 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 16px;
+    transition: background-color 0.2s, transform 0.1s;
+    box-sizing: border-box;
 }
-.btn-white:hover { background-color: #f0f0f0; }
+.btn-white:hover { 
+    background-color: #f0f0f0; /* Un gris muy clarito al pasar el mouse */
+    transform: translateY(-2px);
+ }
 
 .benefits-buttons .btn-primary {
     flex: 1;
