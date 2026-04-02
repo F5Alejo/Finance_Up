@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from dotenv import load_dotenv 
 import os
 
@@ -57,6 +57,20 @@ def confirm_recovery():
 @app.route('/new-password')
 def new_password():
     return render_template('new_password.html')
+
+@app.route('/verify-sms-phone')
+def verify_sms_phone():
+    # Página 1: Pide el número de teléfono
+    return render_template('verify_sms_phone.html')
+
+@app.route('/verify-sms-code')
+def verify_sms_code():
+    # Capturamos el número que el usuario escribió en la página anterior
+    # Si por alguna razón entra directo, ponemos uno de prueba
+    phone_param = request.args.get('phone', '310 550 4841')
+    
+    # Página 2: Pide el código SMS y le mandamos el teléfono real
+    return render_template('verify_sms_code.html', phone=phone_param)
 
 if __name__ == '__main__': #TIENE QUE IR DE ULTIMO <-----------------------
     app.run(debug=True, port=5000)

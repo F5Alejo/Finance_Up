@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación SMS (Paso 1) - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='verify.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='verify_sms_phone.css') }}">
+</head>
+<body>
+    <header class="logo-header">
+        <a href="/" class="logo-text" style="text-decoration: none;">
+            <span class="logo-finance">Finance</span><span class="logo-up">Up<span class="logo-arrow"><sup>↑</sup></span></span>
+        </a>
+    </header>
+
+    <div class="verify-container">
+        <div class="verify-left">
+            <div class="header-title">
+                <h2>Verificación por SMS</h2>
+                <span class="step-badge">Paso 1 de 2</span>
+            </div>
+            <p class="subtitle">Ingresa tu número de celular para enviarte el código de verificación.</p>
+ 
+            <form action="/verify-sms-code" method="GET">
+                <div class="phone-input-group">
+                    <input type="text" class="phone-prefix" value="+57" readonly>
+                    <input type="tel" name="phone" class="verify-input phone-number" placeholder="300 123 4567" maxlength="10" required>
+                </div>
+     
+                <div class="alert-box">
+                    Asegúrate de ingresar un número celular colombiano activo.
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-verify">Continuar</button>
+                    <button type="button" class="btn-resend" onclick="location.href='/verify'">Volver al Email</button>
+                </div>
+            </form>
+        </div>
+ 
+        <div class="verify-right">
+            <h3>Acceso seguro</h3>
+            <p>Verificamos tu número para proteger tu cuenta con doble factor de autenticación.</p>
+            <p>Operamos bajo los estándares de seguridad financiera de Colombia.</p>
+        </div>
+    </div>
+</body>
+</html>

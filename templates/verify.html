@@ -24,10 +24,6 @@
             
             <input type="text" class="verify-input" placeholder="Ingresa el código de 6 dígitos" maxlength="6">
             
-            <div class="email-info">
-                Se envió a: {{ email }} <a href="/register">Cambiar email</a>
-            </div>
-            
             <div class="button-group">
                 <button class="btn-verify" onclick="alert('¡Código verificado con éxito!')">Verificar e ingresar</button>
                 <button class="btn-resend">Reenviar código</button>
@@ -37,7 +33,7 @@
                 Consejo: Si no llega el código, revisa tu bandeja de spam o espera 60 segundos.
             </div>
             
-            <button class="btn-sms">SMS</button>
+            <a href="/verify-sms-phone" class="btn-sms" style="text-decoration: none; text-align: center; display: block;">Verificar por SMS</a>
         </div>
 
         <div class="verify-right">
