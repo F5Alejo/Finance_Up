@@ -10,5 +10,9 @@ def inicio():
     # Más adelante aquí pasaremos datos reales de la base de datos
     return render_template('inicio.html')
 
+@app.route('/educacion')
+def educacion():
+    return render_template('educacion.html')
+
 if __name__ == '__main':
     app.run(debug=True, port=5000)

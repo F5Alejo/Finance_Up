@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educación Financiera - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='educacion.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('inicio') }}" class="logo-finance">Finance <span class="logo-green">Up</span></a>
+        </div>
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="{{ url_for('inicio') }}">Inicio</a>
+                <a href="{{ url_for('educacion') }}" style="color: #0b946d; font-weight: 700;">Educación</a>
+                <a href="#">Alianzas</a>
+                <a href="#">Soporte</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="login-link">Iniciar sesión</a>
+                <a href="#" class="btn-registrarte">Registrarte</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="education-page">
+        <div class="edu-header">
+            <h1>Educación <span class="highlight-green">Financiera</span></h1>
+            <p>Aprende a gestionar tu dinero con nuestros cursos gratuitos diseñados para todos los niveles.</p>
+        </div>
+
+        <div class="courses-container">
+            <h2>Cursos Disponibles</h2>
+            
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto.jpg') }}" alt="Ahorro">
+                    </div>
+                    <h3>Fundamentos del Ahorro</h3>
+                    <p>Aprende las estrategias básicas para crear un fondo de emergencia y empezar a ahorrar de forma constante.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto2.jpg') }}" alt="Presupuesto">
+                    </div>
+                    <h3>Presupuesto Mensual</h3>
+                    <p>Descubre cómo crear y mantener un presupuesto que se adapte a tu estilo de vida y metas financieras.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto3jpg') }}" alt="Inversión">
+                    </div>
+                    <h3>Inversión para Principiantes</h3>
+                    <p>Conoce los diferentes instrumentos de inversión y cómo empezar a hacer crecer tu dinero paso a paso.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto4.jpg') }}" alt="Deudas">
+                    </div>
+                    <h3>Gestión de Deudas</h3>
+                    <p>Estrategias probadas para salir de deudas rápidamente y mejorar tu historial crediticio.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto5.jpg') }}" alt="Jubilación">
+                    </div>
+                    <h3>Planificación de Jubilación</h3>
+                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto6.jpg') }}" alt="Jubilación">
+                    </div>
+                    <h3>Planificación de Jubilación</h3>
+                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto7.jpg') }}" alt="Jubilación">
+                    </div>
+                    <h3>Planificación de Jubilación</h3>
+                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto8.jpg') }}" alt="Jubilación">
+                    </div>
+                    <h3>Planificación de Jubilación</h3>
+                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto9.jpg') }}" alt="Jubilación">
+                    </div>
+                    <h3>Planificación de Jubilación</h3>
+                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto10.jpg') }}" alt="Psicología">
+                    </div>
+                    <h3>Psicología del Dinero</h3>
+                    <p>Entiende cómo tus emociones afectan tus decisiones financieras y cómo desarrollar una mentalidad de abundancia.</p>
+                    <a href="#" class="btn-course">Comenzar</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 FinanceUp. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

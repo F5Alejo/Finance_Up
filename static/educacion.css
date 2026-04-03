@@ -1,0 +1,137 @@
+/* =========================================
+   PÁGINA DE EDUCACIÓN (educacion.css)
+   ========================================= */
+
+.education-page {
+    padding: 60px 10%;
+    background-color: #f8f9fa; /* Fondo gris súper claro */
+    min-height: calc(100vh - 80px);
+}
+
+/* --- Cabecera de la página --- */
+.edu-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px auto;
+}
+
+.edu-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.edu-header p {
+    font-size: 1.15rem;
+    color: #666666;
+    line-height: 1.6;
+}
+
+/* --- Contenedor de Cursos --- */
+.courses-container h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+/* Cuadrícula de Tarjetas (CSS Grid) */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+/* --- Diseño de cada tarjeta de curso --- */
+.course-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid #eaeaea;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(11, 148, 109, 0.1);
+    border-color: #b8daba;
+}
+
+/* Contenedor del ícono */
+.course-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #e8f5e9; /* Verde muy clarito */
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.course-card:hover .course-icon {
+    transform: scale(1.1) rotate(5deg);
+    background-color: #0b946d; /* Cambia a verde oscuro */
+}
+
+/* Invertir el color de la imagen si es transparente */
+.course-card:hover .course-icon img {
+    filter: brightness(0) invert(1); 
+}
+
+.course-icon img {
+    width: 35px;
+    height: auto;
+    transition: filter 0.3s ease;
+}
+
+/* Textos dentro de la tarjeta */
+.course-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+}
+
+.course-card p {
+    font-size: 1rem;
+    color: #666666;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Empuja el botón hacia abajo si el texto es corto */
+}
+
+/* Botón "Comenzar" */
+.btn-course {
+    display: inline-block;
+    text-align: center;
+    background-color: #f0fdf6;
+    color: #0b946d;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid #b8daba;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.course-card:hover .btn-course {
+    background-color: #0b946d;
+    color: #ffffff;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .education-page {
+        padding: 40px 5%;
+    }
+    .edu-header h1 {
+        font-size: 2.2rem;
+    }
+}
