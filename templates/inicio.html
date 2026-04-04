@@ -17,14 +17,14 @@
         </div>
         <nav class="nav-container">
             <div class="nav-links">
-                <a href="#">Inicio</a>
+                <a href="{{ url_for('inicio') }}">Inicio</a>
                 <a href="{{ url_for('educacion') }}">Educación</a>
                 <a href="{{ url_for('alianzas') }}">Alianzas</a>
                 <a href="{{ url_for('soporte') }}">Soporte</a>
             </div>
             <div class="auth-buttons">
-                <a href="#" class="login-link">Iniciar sesión</a>
-                <a href="#" class="btn-registrarte">Registrarte</a>
+                <a href="{{ url_for('login') }}" class="login-link">Iniciar sesión</a>
+                <a href="{{ url_for('register') }}" class="btn-registrarte">Registrarte</a>
             </div>
         </nav>
     </header>

@@ -7,6 +7,10 @@ load_dotenv()
 app = Flask(__name__)
 
 @app.route('/')
+def inicio():
+    return render_template('inicio.html')
+
+@app.route('/login')
 def login():
     # Flask buscará automáticamente en la carpeta 'templates'
     return render_template('login.html')
@@ -71,6 +75,19 @@ def verify_sms_code():
     
     # Página 2: Pide el código SMS y le mandamos el teléfono real
     return render_template('verify_sms_code.html', phone=phone_param)
+
+@app.route('/educacion')
+def educacion():
+    # Asegúrate de que el archivo se llame así en tu carpeta templates
+    return render_template('educacion.html') 
+
+@app.route('/alianzas')
+def alianzas():
+    return render_template('alianzas.html')
+
+@app.route('/soporte')
+def soporte():
+    return render_template('soporte.html')
 
 if __name__ == '__main__': #TIENE QUE IR DE ULTIMO <-----------------------
     app.run(debug=True, port=5000)
