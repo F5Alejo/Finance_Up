@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresa Código (Paso 2) - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='verify.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='verify_sms_phone.css') }}">
+</head>
+<body>
+    <header class="logo-header">
+        <a href="/" class="logo-text" style="text-decoration: none;">
+            <span class="logo-finance">Finance</span><span class="logo-up">Up<span class="logo-arrow"><sup>↑</sup></span></span>
+        </a>
+    </header>
+
+    <div class="verify-container">
+        <div class="verify-left">
+            <div class="header-title">
+                <h2>Ingresa el código</h2>
+                <span class="step-badge">Paso 2 de 2</span>
+            </div>
+            <p class="subtitle">Escribe el código de 4 dígitos que acabamos de enviar por SMS.</p>
+ 
+            <div class="code-inputs">
+                <input class="code-box" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" required>
+                <input class="code-box" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" required>
+                <input class="code-box" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" required>
+                <input class="code-box" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" required>
+            </div>
+ 
+            <div class="email-info" style="margin-bottom: 20px;">
+                Código enviado al <span style="font-weight:600; color: #111;">+57 {{ phone }}</span><br>
+                <a href="/verify-sms-phone" style="color: #2bd46f;">Cambiar número</a>
+            </div>
+ 
+            <div class="button-group">
+                <a href="/" class="btn-verify" style="text-decoration: none; text-align: center;">Verificar e ingresar</a>
+                <button class="btn-resend" onclick="alert('Código reenviado al celular.')">Reenviar</button>
+            </div>
+        </div>
+ 
+        <div class="verify-right">
+            <h3>Casi listo</h3>
+            <p>Los mensajes de texto suelen llegar en menos de 10 segundos.</p>
+            <p>Si no lo recibes, verifica que tu línea tenga señal o intenta cambiar el número.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='verify_sms.js') }}"></script>
+</body>
+</html>

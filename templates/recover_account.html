@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar cuenta - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='recover.css') }}">
+</head>
+<body>
+
+    <header class="logo-header">
+        <a href="/" class="logo-text">
+            <span class="logo-finance">Finance</span>
+            <span class="logo-up">Up<span class="logo-arrow"><sup>↑</sup></span></span>
+        </a>
+    </header>
+
+    <div class="recovery-container recovery-container--step1">
+        
+        <div class="form-section verify-left">
+            <div class="header-title">
+                <h2>Recuperar cuenta</h2>
+                <span class="step-badge">Paso 1 de 2</span>
+            </div>
+            
+            <p class="subtitle">Ingresa tu correo electrónico para enviarte un código.</p>
+            
+            <input type="email" class="recovery-input" placeholder="Correo electrónico" required>
+            
+            <div class="button-group">
+                <a href="/confirm-recovery" class="btn btn-primary">Continuar</a>
+                <a href="/" class="btn btn-secondary">Regresar</a>
+            </div>
+        </div>
+
+        <div class="verify-right">
+            <p>Estamos aquí para ayudarte. Por favor ingresa tu correo electrónico para enviarte un código de verificación.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

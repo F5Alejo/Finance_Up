@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicia sesión - Cuentas de Google</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='simulate_google.css') }}">
+</head>
+<body>
+    <div class="google-card">
+        
+        <!-- COLUMNA IZQUIERDA -->
+        <div class="left-col">
+            <img src="{{ url_for('static', filename='img/google.png') }}" class="google-logo" alt="Google">
+            <h1>Inicia sesión</h1>
+            <p class="subtitle">con tu cuenta de Google. Esta cuenta estará disponible para otras aplicaciones de Google en el navegador.</p>
+        </div>
+
+        <!-- COLUMNA DERECHA -->
+        <div class="right-col">
+            <input type="text" class="google-input" placeholder="Correo electrónico o teléfono">
+            
+            <a href="#" class="link">¿Has olvidado tu correo electrónico?</a>
+            
+            <p class="guest-text">
+                ¿No es tu ordenador? Usa el modo invitado para iniciar sesión de forma privada. <br> 
+                <a href="#" class="link">Más información sobre cómo usar el modo Invitado</a>
+            </p>
+            
+            <div class="actions">
+                <a href="#" class="link">Crear cuenta</a>
+                <!-- Este botón redirige a la ruta de éxito -->
+                <button class="btn-next" onclick="location.href='/auth/google/success'">Siguiente</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

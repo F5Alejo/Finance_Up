@@ -1,0 +1,182 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f5f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Barra superior ── */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    border-bottom: 1px solid #d2d2d7;
+    background-color: #f5f5f7;
+}
+
+.top-bar-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.top-bar-link {
+    font-size: 14px;
+    color: #1d1d1f;
+    text-decoration: none;
+}
+.top-bar-link:hover {
+    text-decoration: underline;
+}
+
+/* ── Contenedor central ── */
+.apple-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.apple-card {
+    background: transparent;
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+/* ── Ícono de perfil ── */
+.profile-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #e0e0e5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* ── Título ── */
+.apple-card h1 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #1d1d1f;
+    line-height: 1.4;
+    margin-bottom: 22px;
+    max-width: 340px;
+}
+
+.apple-card h1 strong {
+    font-weight: 600;
+}
+
+/* ── Input ── */
+.apple-input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1.5px solid #0071e3;
+    border-radius: 10px;
+    background: white;
+    font-size: 15px;
+    color: #1d1d1f;
+    outline: none;
+    margin-bottom: 22px;
+    transition: border-color 0.2s;
+}
+
+.apple-input::placeholder {
+    color: #aeaeb2;
+}
+
+.apple-input:focus {
+    border-color: #0077ed;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+}
+
+/* ── Ícono personas ── */
+.legal-icon {
+    margin-bottom: 10px;
+}
+
+/* ── Texto legal ── */
+.legal-text {
+    font-size: 12px;
+    color: #6e6e73;
+    line-height: 1.6;
+    max-width: 380px;
+    margin-bottom: 28px;
+}
+
+.legal-link {
+    color: #0071e3;
+    text-decoration: none;
+}
+.legal-link:hover {
+    text-decoration: underline;
+}
+
+/* ── Botones ── */
+.button-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.btn-continuar {
+    flex: 1;
+    padding: 13px 10px;
+    border-radius: 980px;
+    border: none;
+    background-color: #d1e3f8;
+    color: #003f7f;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-continuar:hover {
+    background-color: #b8d4f5;
+}
+
+.btn-iphone {
+    flex: 1.4;
+    padding: 13px 14px;
+    border-radius: 980px;
+    border: none;
+    background-color: #1d1d1f;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.btn-iphone:hover {
+    background-color: #3a3a3c;
+}
+
+/* ── Nota inferior ── */
+.iphone-note {
+    font-size: 11px;
+    color: #6e6e73;
+    text-align: center;
+    line-height: 1.5;
+}
