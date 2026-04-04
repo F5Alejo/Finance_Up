@@ -14,5 +14,17 @@ def inicio():
 def educacion():
     return render_template('educacion.html')
 
+@app.route('/alianzas')
+def alianzas():
+    return render_template('alianzas.html')
+
+@app.route('/soporte')
+def soporte():
+    return render_template('soporte.html')
+
+@app.route('/perfil')
+def perfil():
+    return render_template('perfil.html')
+
 if __name__ == '__main':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)

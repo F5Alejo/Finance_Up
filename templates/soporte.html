@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educación Financiera - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='educacion.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='soporte.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('inicio') }}" class="logo-finance">Finance <span class="logo-green">Up</span></a>
+        </div>
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="{{ url_for('inicio') }}">Inicio</a>
+                <a href="{{ url_for('educacion') }}" style="color: #0b946d; font-weight: 700;">Educación</a>
+                <a href="{{ url_for('alianzas') }}">Alianzas</a>
+                <a href="{{ url_for('soporte') }}">Soporte</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="login-link">Iniciar sesión</a>
+                <a href="#" class="btn-registrarte">Registrarte</a>
+            </div>
+        </nav>
+    </header>
+    <main id="soporte" class="contenedor-soporte"> 
+        <div class="tarjeta-soporte">
+    <div class="contenido-texto">
+      <h1>Habla Con<br>Nosotros</h1>
+      <p>Si aún tienes dudas sobre nuestros servicios contáctanos, Tu voz nos importa</p>
+      <a href="https://wa.me/tu_numero_aqui" target="_blank" class="btn-whatsapp">WhatsApp</a>
+    </div>
+
+    <div class="contenido-imagen">
+      <img src="{{ url_for('static', filename='img/icon_soporte.jpg') }}" alt="Soporte">
+    </div>
+  </div>
+    </main>
+</body>
+</html>
