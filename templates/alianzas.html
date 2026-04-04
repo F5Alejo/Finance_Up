@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alianzas - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='alianzas.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('inicio') }}" class="logo-finance">Finance <span class="logo-green">Up</span></a>
+        </div>
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="{{ url_for('inicio') }}">Inicio</a>
+                <a href="{{ url_for('educacion') }}">Educación</a>
+                <a href="{{ url_for('alianzas') }}" style="color: #0b946d; font-weight: 700;">Alianzas</a>
+                <a href="{{ url_for('soporte') }}">Soporte</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="login-link">Iniciar sesión</a>
+                <a href="#" class="btn-registrarte">Registrarte</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="seccion-alianzas"> 
+        
+        <div class="hero-alianzas">
+            <div class="hero-texto">
+                <span class="badge-beneficios">✔️ BENEFICIOS EXCLUSIVOS</span>
+                <h1>Tu Crédito Ideal,<br><span class="texto-verde">Aprobado en Minutos</span></h1>
+                <p>Accede a ofertas preferenciales de los mejores bancos y fintechs de Colombia. Mejora tu perfil y ahorra en intereses hoy mismo.</p>
+                <div class="hero-botones">
+                    <a href="#" class="btn-primario">Ver mis elegibles ➔</a>
+                    <a href="#" class="btn-secundario">Explorar Todo</a>
+                </div>
+            </div>
+            <div class="hero-imagen">
+                <img src="{{ url_for('static', filename='img/tarjeta_verde.png') }}" alt="Tarjeta Platinum">
+            </div>
+        </div>
+
+        <div class="dashboard-alianzas">
+            
+            <aside class="columna-filtros">
+                <div class="caja-filtros">
+                    <h3>≡ Filtrar ofertas</h3>
+                    <input type="text" placeholder="🔍 Bancos, fintechs..." class="input-busqueda">
+                    
+                    <div class="grupo-filtro">
+                        <h4>TIPO DE ALIADO</h4>
+                        <div class="pills">
+                            <span class="pill activa">Bancos</span>
+                            <span class="pill">Fintech</span>
+                            <span class="pill">Comercio</span>
+                        </div>
+                    </div>
+
+                    <div class="grupo-filtro">
+                        <h4>BENEFICIO PRINCIPAL</h4>
+                        <div class="pills">
+                            <span class="pill">0% Interés</span>
+                            <span class="pill">Cashback</span>
+                            <span class="pill">Sin Cuota</span>
+                        </div>
+                    </div>
+
+                    <div class="grupo-filtro">
+                        <h4>TU PERFIL</h4>
+                        <div class="pills">
+                            <span class="pill">Score Alto</span>
+                            <span class="pill">Historial Nuevo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tarjeta-bonos">
+                    <h4>Bonos por buen hábito</h4>
+                    <a href="#" class="btn-blanco">Conoce Cómo</a>
+                </div>
+            </aside>
+
+            <main class="columna-ofertas">
+                <h3 class="titulo-seccion">Ofertas recomendadas</h3>
+                
+                <div class="tarjeta-oferta">
+                    <div class="oferta-info">
+                        <h4>Banco Andino</h4>
+                        <p>Hasta 2 puntos menos en tasa si completas los módulos básicos.</p>
+                        <span class="meta-texto">Vence en 7 días · 2.1k usuarios · ID8866</span>
+                        <div class="oferta-botones">
+                            <a href="#" class="btn-aplicar">Aplicar</a>
+                        </div>
+                    </div>
+                    <div class="oferta-logo">
+                        <img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Banco Andino">
+                    </div>
+                </div>
+
+                <div class="tarjeta-oferta">
+                    <div class="oferta-info">
+                        <h4>Fintech Luz</h4>
+                        <p>5% de cashback en compras esenciales y 0% cuota de manejo por 6 meses.</p>
+                        <span class="meta-texto">Recomendado · Válido este mes · ID 2288</span>
+                        <div class="oferta-botones">
+                            <a href="#" class="btn-aplicar">Solicitar</a>
+                            <a href="#" class="btn-guardar">Guardar</a>
+                        </div>
+                    </div>
+                    <div class="oferta-logo bg-negro">
+                        <img src="{{ url_for('static', filename='img/banco_fintech.png') }}" alt="Banco Fintech">
+                    </div>
+                </div>
+
+                <div class="tarjeta-oferta">
+                    <div class="oferta-info">
+                        <h4>MicroCrédito Ya</h4>
+                        <p>Préstamos pequeños para construir historial crediticio desde cero.</p>
+                        <span class="meta-texto">ID 6795</span>
+                        <div class="oferta-botones">
+                            <a href="#" class="btn-aplicar">Solicitar</a>
+                        </div>
+                    </div>
+                    <div class="oferta-logo">
+                        <div style="background: #1e293b; color: white; padding: 10px; border-radius: 5px; text-align: center;">MICRO CRÉDITO</div>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="columna-simulador">
+                <div class="tarjeta-simulador">
+                    <h3>📊 Simulador Pro</h3>
+                    
+                    <div class="simulador-monto">
+                        <p>¿Cuánto necesitas?</p>
+                        <h2>$15.000.000</h2>
+                    </div>
+                    
+                    <div class="simulador-rango">
+                        <span class="rango-min">1M</span>
+                        <input type="range" min="1" max="100" value="15" class="slider">
+                        <span class="rango-max">100M</span>
+                    </div>
+
+                    <div class="simulador-plazo">
+                        <p>Plazo (meses)</p>
+                        <h3>24</h3>
+                        <div class="pills-plazo">
+                            <span class="pill">12</span>
+                            <span class="pill activa">24</span>
+                            <span class="pill">36</span>
+                            <span class="pill">48</span>
+                        </div>
+                    </div>
+
+                    <div class="simulador-resultado">
+                        <p>Pago mensual estimado</p>
+                        <h2>$745,500</h2>
+                    </div>
+
+                    <div class="caja-ahorro">
+                        <span style="font-size: 1.2rem;">↓</span>
+                        <div>
+                            <strong>AHORRO POTENCIAL</strong><br>
+                            -$240,000 en intereses
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn-solicitar-credito">Solicitar este crédito</a>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+</body>
+</html>

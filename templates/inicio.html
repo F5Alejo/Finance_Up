@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Up - Landing Page</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="#" class="text-logo">F</a>
+        </div>
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="#">Inicio</a>
+                <a href="{{ url_for('educacion') }}">Educación</a>
+                <a href="{{ url_for('alianzas') }}">Alianzas</a>
+                <a href="{{ url_for('soporte') }}">Soporte</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="login-link">Iniciar sesión</a>
+                <a href="#" class="btn-registrarte">Registrarte</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <div class="hero-card">
+            <h1>Gestiona tus <span class="highlight">Finanzas</span> <br> con Inteligencia</h1>
+            <p>Plataforma integral para el control financiero personal y empresarial. Toma decisiones inteligentes con datos en tiempo real.</p>
+            <div class="hero-action">
+                <button class="btn-main">Comenzar Ahora</button>
+            </div>
+        </div>
+    </main>
+
+    <section class="features" id="caracteristicas">
+        <div class="features-header">
+            <h2>Características <span class="highlight-green">Poderosas</span></h2>
+            <p>Todo lo que necesitas para tomar el control total de tus finanzas personales y empresariales.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{{ url_for('static', filename='img/dashboard_intuitivo.png') }}" alt="Dashboard Intuitivo">
+                </div>
+                <h3>Dashboard Intuitivo</h3>
+                <p>Visualiza todas tus finanzas en un solo lugar con gráficos interactivos y reportes en tiempo real.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{{ url_for('static', filename='img/seguridad_bancaria.png') }}" alt="Seguridad Bancaria">
+                </div>
+                <h3>Seguridad Bancaria</h3>
+                <p>Encriptación de nivel bancario y autenticación de dos factores para proteger tu información.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{{ url_for('static', filename='img/conecta_con_bancos.png') }}" alt="Conecta con Bancos">
+                </div>
+                <h3>Conecta con Bancos</h3>
+                <p>Encuentra una variedad de bancos en nuestra plataforma para sincronizar tus cuentas de manera segura.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{{ url_for('static', filename='img/gestion_de_presupuestos.png') }}" alt="Gestion de Presupuestos">
+                </div>
+                <h3>Gestion de Presupuestos</h3>
+                <p>Crea y monitorea presupuestos personalizados con alertas automaticas de gastos y ahorro.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{{ url_for('static', filename='img/multiples_monedas.png') }}" alt="Multiples Monedas">
+                </div>
+                <h3>Multiples Monedas</h3>
+                <p>Soporte para más de 150 monedas con conversion automatica y tasas actualizadas al instante.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-container">
+                    <img src="{{ url_for('static', filename='img/en_todo_el_mundo.png') }}" alt="En todo el mundo">
+                </div>
+                <h3>En todo el mundo</h3>
+                <p>Ingresa desde cualquier parte del mundo desde nuestra pagina web.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="solutions" id="soluciones">
+        
+        <div class="solution-row">
+            <div class="solution-content">
+                <span class="badge">Personal</span>
+                <h2>Controla tus gastos diarios</h2>
+                <p>Registra tus ingresos y gastos de forma sencilla. Categoriza tus transacciones y visualiza a dónde va tu dinero cada mes.</p>
+                <ul class="solution-list">
+                    <li><span class="check-icon">✓</span> Categorización automática</li>
+                    <li><span class="check-icon">✓</span> Presupuestos personalizados</li>
+                    <li><span class="check-icon">✓</span> Alertas de gastos</li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <img src="{{ url_for('static', filename='img/personal_business.png') }}" alt="Gestión de finanzas personales">
+            </div>
+        </div>
+
+        <div class="solution-row reverse">
+            <div class="solution-content">
+                <span class="badge">Empresarial</span>
+                <h2>Gestión financiera para tu negocio</h2>
+                <p>Herramientas avanzadas para mantener tu empresa en crecimiento. Controla el flujo de caja, emite facturas y gestiona nóminas.</p>
+                <ul class="solution-list">
+                    <li><span class="check-icon">✓</span> Facturación electrónica</li>
+                    <li><span class="check-icon">✓</span> Control de inventario</li>
+                    <li><span class="check-icon">✓</span> Reportes financieros</li>
+                </ul>
+            </div>
+            <div class="solution-image">
+                <img src="{{ url_for('static', filename='img/business_management.jpg') }}" alt="Gestión financiera empresarial">
+            </div>
+        </div>
+    </section>
+
+    <section class="education" id="educacion">
+        <div class="education-container">
+            
+            <div class="education-content">
+                <h2>Domina tus <span class="highlight-green">Finanzas</span> <br> Paso a Paso</h2>
+                <p class="education-subtitle">Aprende los fundamentos de la educación financiera con nuestros recursos gratuitos y toma el control de tu futuro económico.</p>
+
+                <div class="education-steps">
+                    <div class="step-card">
+                        <div class="step-icon">📚</div>
+                        <div class="step-text">
+                            <h3>Conceptos Básicos</h3>
+                            <p>Aprende a presupuestar, ahorrar y gestionar tus deudas de manera efectiva.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-icon">📈</div>
+                        <div class="step-text">
+                            <h3>Inversión Inteligente</h3>
+                            <p>Descubre cómo hacer crecer tu dinero y construir riqueza a largo plazo.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-icon">🎯</div>
+                        <div class="step-text">
+                            <h3>Planificación para el Futuro</h3>
+                            <p>Asegura tu estabilidad financiera para la jubilación y emergencias.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-main">Explorar Cursos</button>
+            </div>
+
+            <div class="education-image">
+                <div class="image-glow-wrapper">
+                    <img src="{{ url_for('static', filename='img/line_coin.jpg') }}" alt="Gráfico de Crecimiento Financiero">
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-container">
+            
+            <div class="footer-col brand-col">
+                <a href="#" class="logo-finance">Finance <span class="logo-green">Up</span></a>
+                <p>Tu plataforma integral para la gestión financiera inteligente. Toma el control de tu dinero hoy.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">In</a>
+                    <a href="#" class="social-icon">Tw</a>
+                    <a href="#" class="social-icon">Fb</a>
+                    <a href="#" class="social-icon">Ig</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Producto</h4>
+                <ul>
+                    <li><a href="#">Características</a></li>
+                    <li><a href="#">Precios</a></li>
+                    <li><a href="#">Casos de uso</a></li>
+                    <li><a href="#">Actualizaciones</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Compañía</h4>
+                <ul>
+                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="#">Carreras</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Términos de servicio</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Política de cookies</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 FinanceUp. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,812 @@
+/* =========================================
+   1. RESET GENERAL Y FUENTES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   2. BARRA DE NAVEGACIÓN (NAVBAR)
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    height: 80px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.text-logo {
+    font-size: 45px;
+    font-weight: 900;
+    color: #4ba35e;
+    letter-spacing: -2px;
+    line-height: 1;
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.text-logo:hover {
+    color: #3d8a4d;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a, .login-link {
+    color: #333333;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.nav-links a:hover, .login-link:hover {
+    color: #0b946d;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-registrarte {
+    background-color: #b8daba; 
+    color: #2d4a2e;
+    padding: 10px 25px;
+    border-radius: 50px; 
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.btn-registrarte:hover {
+    background-color: #a4c9a6;
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   3. SECCIÓN HERO (EL CONTENIDO PRINCIPAL)
+   ========================================= */
+.hero {
+    height: calc(100vh - 80px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    /* CORRECCIÓN DE LA RUTA DE LA IMAGEN PARA FLASK */
+    background-color: #4c8a2b; 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), 
+                      url('img/cuadro_verde.png'); 
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.hero-card {
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+}
+
+.highlight {
+    color: #48e5c2; 
+}
+
+.hero p {
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 35px auto;
+    line-height: 1.6;
+    opacity: 0.95;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* =========================================
+   4. BOTÓN CENTRAL
+   ========================================= */
+.hero-action {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-main {
+    background-color: #0b946d; 
+    color: #ffffff;
+    padding: 16px 45px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(11, 148, 109, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-main:hover {
+    background-color: #087a5a;
+    transform: translateY(-2px); 
+    box-shadow: 0 12px 25px rgba(11, 148, 109, 0.5);
+}
+
+
+/* =========================================
+   6. SECCIÓN CARACTERÍSTICAS
+   ========================================= */
+.features {
+    padding: 80px 10%; /* Espaciado arriba/abajo y a los lados */
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.features-header {
+    margin-bottom: 60px;
+}
+
+.features-header h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+/* Color verde específico para la palabra "Poderosas" */
+.highlight-green {
+    color: #0b946d; 
+}
+
+.features-header p {
+    font-size: 1.1rem;
+    color: #666666;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Grilla para las 3 tarjetas */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* Espacio entre las tarjetas */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Diseño de cada tarjeta individual */
+.feature-card {
+    background-color: #ffffff;
+    border: 1px solid #f0f0f0; /* Borde muy sutil */
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: left; /* Texto alineado a la izquierda según el mockup */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px); /* Se levanta un poco al pasar el mouse */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Cuadrito verde claro detrás del ícono */
+.icon-container {
+    width: 60px;
+    height: 60px;
+    background-color: #e8f5e9; /* Verde muy clarito */
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.icon-container img {
+    width: 30px; /* Tamaño del ícono */
+    height: auto;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #666666;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   7. SECCIÓN SOLUCIONES (Personal y Empresarial)
+   ========================================= */
+.solutions {
+    padding: 80px 10%;
+    background-color: #fcfcfc; /* Un gris/blanco muy sutil para diferenciar de la sección anterior */
+}
+
+/* Contenedor de cada fila (Texto + Imagen) */
+.solution-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    margin-bottom: 100px; /* Espacio entre el bloque Personal y Empresarial */
+}
+
+/* Invierte el orden para el bloque Empresarial */
+.solution-row.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Columna de Texto */
+.solution-content {
+    flex: 1; /* Toma la mitad del espacio */
+    max-width: 500px;
+}
+
+/* Columna de Imagen */
+.solution-image {
+    flex: 1; /* Toma la otra mitad */
+    display: flex;
+    justify-content: center;
+}
+
+.solution-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px; /* Bordes suaves para la imagen si aplica */
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.08); Opcional: sombra a la imagen */
+}
+
+/* Etiqueta / Badge verde (Personal / Empresarial) */
+.badge {
+    display: inline-block;
+    background-color: #e8f5e9; /* Fondo verde claro */
+    color: #0b946d; /* Texto verde oscuro */
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 50px; /* Bordes totalmente curvos */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Títulos y Párrafos */
+.solution-content h2 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.solution-content p {
+    font-size: 1.1rem;
+    color: #666666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Lista de checks */
+.solution-list {
+    list-style: none;
+    padding: 0;
+}
+
+.solution-list li {
+    display: flex;
+    align-items: center;
+    font-size: 1.05rem;
+    color: #333333;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+/* El chulito (check) verde */
+.check-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e8f5e9;
+    color: #0b946d;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%; /* Círculo verde de fondo para el check */
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* --- A. MEJORA DEL LOGO DE TEXTO --- */
+.text-logo {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto al pasar el mouse sobre la 'F' */
+.text-logo:hover {
+    color: #48e5c2; /* Cambia al color cyan del Hero */
+    transform: scale(1.1) rotate(-5deg);
+    text-shadow: 0 0 15px rgba(72, 229, 194, 0.6); /* Brillo de neón suave */
+}
+
+/* --- B. PROFUNDIDAD EN LA SECCIÓN HERO --- */
+/* Agregamos elementos flotantes abstractos detrás del texto */
+.hero::before,
+.hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05); /* Círculos traslúcidos blancos */
+    animation: float_hero 15s infinite ease-in-out;
+    pointer-events: none; /* No interfieren con los clics */
+    z-index: 1; /* Detrás del hero-card */
+}
+
+.hero::before {
+    width: 250px;
+    height: 250px;
+    top: 15%;
+    left: 8%;
+}
+
+.hero::after {
+    width: 150px;
+    height: 150px;
+    bottom: 20%;
+    right: 5%;
+    animation-delay: -5s; /* Desfase en la animación */
+}
+
+.hero-card {
+    z-index: 2; /* Por encima de los elementos flotantes */
+}
+
+/* Animación de flotación suave */
+@keyframes float_hero {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    33% { transform: translateY(-30px) translateX(15px) rotate(5deg); }
+    66% { transform: translateY(15px) translateX(-10px) rotate(-3deg); }
+}
+
+/* --- C. EFECTO EN LOS ICONOS DE CARACTERÍSTICAS --- */
+/* Ya tienes el hover en .feature-card, vamos a potenciar el ícono interno */
+.feature-card:hover .icon-container {
+    background-color: #0b946d; /* Fondo verde oscuro al hacer hover */
+    transform: rotateY(180deg) scale(1.1); /* Efecto de giro 3D */
+    box-shadow: 0 8px 20px rgba(11, 148, 109, 0.3);
+}
+
+.feature-card:hover .icon-container img {
+    filter: brightness(0) invert(1); /* Vuelve el icono blanco */
+}
+
+/* --- D. EFECTO 3D AVANZADO EN IMÁGENES DE SOLUCIONES --- */
+/* Este es el efecto más creativo. Le da perspectiva 3D a tus mockups. */
+
+/* Preparamos el contenedor para la perspectiva */
+.solution-row {
+    perspective: 1500px;
+}
+
+.solution-image {
+    position: relative;
+    /* Suaviza todas las transiciones */
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Imagen base */
+.solution-image img {
+    transition: transform 0.6s ease;
+    display: block;
+}
+
+/* EFECTO HOVER DE INCLINACIÓN 3D */
+/* Cuando el usuario pasa el mouse sobre la fila, la imagen se inclina */
+.solution-row:hover .solution-image {
+    transform: rotateY(15deg) rotateX(2deg) scale(1.03); /* Inclinación hacia la izquierda */
+    box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.12); /* Sombra dinámica */
+}
+
+/* Inversión de inclinación para la fila inversa (imagen a la izquierda) */
+.solution-row.reverse:hover .solution-image {
+    transform: rotateY(-15deg) rotateX(2deg) scale(1.03); /* Inclinación hacia la derecha */
+    box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.12); /* Sombra dinámica inversa */
+}
+
+/* Pequeña animación interna del zoom en la imagen misma */
+.solution-row:hover .solution-image img {
+    transform: scale(1.05); /* Efecto de zoom sutil dentro del marco */
+}
+
+/* Elemento decorativo flotante que aparece alrededor de la imagen al hacer hover */
+.solution-image::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(72, 229, 194, 0.2); /* Color cyan translúcido */
+    border-radius: 8px;
+    top: -10px;
+    right: -10px;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.solution-row:hover .solution-image::after {
+    opacity: 1;
+    transform: translate(-10px, 10px) rotate(45deg); /* Se mueve "in front" */
+}
+
+/* =========================================
+   8. SECCIÓN EDUCACIÓN FINANCIERA (DISEÑO CREATIVO)
+   ========================================= */
+.education {
+    padding: 100px 10%;
+    /* Un gradiente súper sutil que va de blanco a un verde agua muy pálido */
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdf6 100%); 
+    overflow: hidden;
+}
+
+.education-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.education-content {
+    flex: 1;
+    max-width: 550px;
+}
+
+.education-content h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+/* Reutilizamos el color verde para resaltar */
+.highlight-green {
+    color: #0b946d; 
+}
+
+.education-subtitle {
+    font-size: 1.1rem;
+    color: #666666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* --- TARJETAS INTERACTIVAS (PASOS) --- */
+.education-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre las tarjetitas */
+    margin-bottom: 40px;
+}
+
+.step-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    border: 1px solid rgba(11, 148, 109, 0.1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    /* Transición suave para el hover */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+/* Borde izquierdo verde oculto que aparece al pasar el mouse */
+.step-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: #0b946d;
+    transition: all 0.3s ease;
+}
+
+/* Efecto Hover: La tarjeta salta hacia la derecha y se ilumina */
+.step-card:hover {
+    transform: translateX(10px); 
+    box-shadow: 0 10px 25px rgba(11, 148, 109, 0.15);
+    border-color: transparent;
+}
+
+.step-card:hover::before {
+    width: 8px; /* El borde verde se hace más grueso */
+}
+
+/* Iconos dentro de las tarjetas */
+.step-icon {
+    font-size: 1.8rem;
+    background: #e8f5e9; /* Fondo verde claro */
+    min-width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    transition: transform 0.4s ease;
+}
+
+/* El icono gira y crece al hacer hover en la tarjeta */
+.step-card:hover .step-icon {
+    transform: rotate(10deg) scale(1.1);
+    background: #0b946d; /* Cambia a verde oscuro */
+}
+
+/* Un truco usando filter para que el emoji/texto del icono no desaparezca con el fondo oscuro, 
+   si usas SVGs esto es genial, con emojis lo mantenemos simple */
+
+.step-text h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+.step-text p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* --- IMAGEN CON EFECTO FLOTANTE Y RESPLANDOR --- */
+.education-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-glow-wrapper {
+    position: relative;
+    /* Aplicamos la animación de flotar */
+    animation: float_up_down 5s ease-in-out infinite; 
+}
+
+.image-glow-wrapper img {
+    max-width: 100%;
+    height: auto;
+    /* Una sombra bonita que respeta la forma de la imagen (ideal para PNGs) */
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); 
+    transition: transform 0.5s ease;
+    z-index: 2;
+    position: relative;
+}
+
+.image-glow-wrapper:hover img {
+    transform: scale(1.05) rotate(2deg); /* Reacciona al mouse */
+}
+
+/* El resplandor (Glow) detrás de la imagen */
+.image-glow-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    background: radial-gradient(circle, rgba(72,229,194,0.3) 0%, rgba(255,255,255,0) 70%);
+    z-index: 1;
+    border-radius: 50%;
+    /* Animación de pulso para el brillo */
+    animation: pulse_glow 3s ease-in-out infinite alternate; 
+}
+
+/* KEYFRAMES PARA LAS ANIMACIONES */
+@keyframes float_up_down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); } /* Sube 20px a la mitad de la animación */
+}
+
+@keyframes pulse_glow {
+    0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.9); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } /* Se hace más grande y brillante */
+}
+
+/* =========================================
+   9. FOOTER / PIE DE PÁGINA
+   ========================================= */
+.footer {
+    background-color: #f8f9fa; /* Gris muy claro, casi blanco */
+    padding: 80px 10% 20px 10%; /* Espaciado generoso arriba, menos abajo */
+    border-top: 1px solid #eaeaea;
+}
+
+.footer-container {
+    display: grid;
+    /* La primera columna (logo) ocupa más espacio, las otras 3 se dividen el resto */
+    grid-template-columns: 2fr 1fr 1fr 1fr; 
+    gap: 40px;
+    margin-bottom: 60px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Columna de la marca (Logo) */
+.brand-col p {
+    color: #666666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 300px;
+}
+
+.footer-logo {
+    font-size: 35px; /* Un poco más pequeño que en el navbar */
+}
+
+/* Redes Sociales */
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    color: #0b946d;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #0b946d;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(11, 148, 109, 0.2);
+}
+
+/* Columnas de Enlaces */
+.footer-col h4 {
+    color: #1a1a1a;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 15px;
+}
+
+.footer-col ul li a {
+    color: #5d8855;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+/* Efecto hover interactivo: el enlace se vuelve verde y se mueve un poco */
+.footer-col ul li a:hover {
+    color: #0b946d;
+    transform: translateX(5px); 
+}
+
+/* Barra inferior (Copyright) */
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid #eaeaea;
+    color: #888888;
+    font-size: 0.9rem;
+}
+
+/* Estilo general del logo (Afecta a la palabra "Finance") */
+.logo-finance {
+    font-size: 28px; /* Tamaño del texto */
+    font-weight: 800; /* Letra bien gruesa (Bold/Black) */
+    color: #1a1a1a; /* Casi negro, más elegante que el negro puro */
+    text-decoration: none;
+    letter-spacing: -0.5px; /* Junta un poquito las letras para que parezca logo */
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+/* Estilo específico para la palabra "Up" */
+.logo-finance .logo-green {
+    color: #0b946d; /* El verde característico de tu marca */
+}
+
+/* Un pequeño efecto al pasar el mouse por todo el logo */
+.logo-finance:hover {
+    transform: scale(1.05); /* Crece un poquito */
+}
+
+/* --- RESPONSIVE (Celulares y Tablets) --- */
+@media (max-width: 900px) {
+    .footer-container {
+        /* En pantallas medianas, 2 columnas */
+        grid-template-columns: 1fr 1fr; 
+    }
+}
+
+@media (max-width: 600px) {
+    .footer {
+        padding: 60px 5% 20px 5%;
+    }
+    .footer-container {
+        /* En celulares, 1 sola columna hacia abajo */
+        grid-template-columns: 1fr; 
+        text-align: center;
+    }
+    .brand-col p {
+        margin: 20px auto;
+    }
+    .social-links {
+        justify-content: center;
+    }
+    /* Quitamos el movimiento lateral en celular para evitar desbordes */
+    .footer-col ul li a:hover {
+        transform: translateX(0); 
+    }
+}
