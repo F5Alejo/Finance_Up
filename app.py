@@ -22,9 +22,5 @@ def alianzas():
 def soporte():
     return render_template('soporte.html')
 
-@app.route('/perfil')
-def perfil():
-    return render_template('perfil.html')
-
 if __name__ == '__main':
     app.run(debug=True)
