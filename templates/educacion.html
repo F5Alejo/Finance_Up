@@ -17,6 +17,7 @@
         <nav class="nav-container">
             <div class="nav-links">
                 <a href="{{ url_for('inicio') }}">Inicio</a>
+                <a href="{{ url_for('finanzas') }}">Tus Finanzas</a>
                 <a href="{{ url_for('educacion') }}" style="color: #0b946d; font-weight: 700;">Educación</a>
                 <a href="{{ url_for('alianzas') }}">Alianzas</a>
                 <a href="{{ url_for('soporte') }}">Soporte</a>
@@ -30,112 +31,359 @@
 
     <main class="education-page">
         <div class="edu-header">
+            <span class="edu-badge">Gratuito para todos</span>
             <h1>Educación <span class="highlight-green">Financiera</span></h1>
-            <p>Aprende a gestionar tu dinero con nuestros cursos gratuitos diseñados para todos los niveles.</p>
+            <p>Cursos diseñados para que tomes el control total de tu dinero, desde lo básico hasta inversiones avanzadas. Aprende a tu ritmo, sin costos.</p>
+            <div class="edu-stats">
+                <div class="edu-stat"><strong>10</strong><span>Cursos</span></div>
+                <div class="edu-stat"><strong>+40</strong><span>Lecciones</span></div>
+                <div class="edu-stat"><strong>100%</strong><span>Gratis</span></div>
+            </div>
+        </div>
+
+        <!-- Filtro por nivel -->
+        <div class="edu-filtros">
+            <button class="edu-pill activo" data-nivel="todos" onclick="filtrarCursos(this)">Todos</button>
+            <button class="edu-pill" data-nivel="basico" onclick="filtrarCursos(this)">Básico</button>
+            <button class="edu-pill" data-nivel="intermedio" onclick="filtrarCursos(this)">Intermedio</button>
+            <button class="edu-pill" data-nivel="avanzado" onclick="filtrarCursos(this)">Avanzado</button>
         </div>
 
         <div class="courses-container">
-            <h2>Cursos Disponibles</h2>
-            
             <div class="courses-grid">
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto.jpg') }}" alt="Ahorro">
+
+                <!-- 1 -->
+                <div class="course-card" data-nivel="basico" onclick="abrirCurso(0)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto.jpg') }}" alt="Ahorro"></div>
+                        <span class="nivel-badge basico">Básico</span>
                     </div>
                     <h3>Fundamentos del Ahorro</h3>
-                    <p>Aprende las estrategias básicas para crear un fondo de emergencia y empezar a ahorrar de forma constante.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto2.jpg') }}" alt="Presupuesto">
+                    <p>Aprende a crear un fondo de emergencia sólido y desarrollar hábitos de ahorro constante desde cero.</p>
+                    <div class="course-meta">
+                        <span>4 lecciones</span><span>45 min</span>
                     </div>
-                    <h3>Presupuesto Mensual</h3>
-                    <p>Descubre cómo crear y mantener un presupuesto que se adapte a tu estilo de vida y metas financieras.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto3jpg') }}" alt="Inversión">
+                    <div class="course-temas">
+                        <span class="tema-tag">Fondo de emergencia</span>
+                        <span class="tema-tag">Regla 50/30/20</span>
+                        <span class="tema-tag">Automatización</span>
                     </div>
-                    <h3>Inversión para Principiantes</h3>
-                    <p>Conoce los diferentes instrumentos de inversión y cómo empezar a hacer crecer tu dinero paso a paso.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
+                    <a class="btn-course">Ver curso</a>
                 </div>
 
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto4.jpg') }}" alt="Deudas">
+                <!-- 2 -->
+                <div class="course-card" data-nivel="basico" onclick="abrirCurso(1)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto2.jpg') }}" alt="Presupuesto"></div>
+                        <span class="nivel-badge basico">Básico</span>
+                    </div>
+                    <h3>Presupuesto Mensual Inteligente</h3>
+                    <p>Domina el método de presupuesto por categorías y ajústalo a tu estilo de vida real sin sacrificar lo que disfrutas.</p>
+                    <div class="course-meta">
+                        <span>5 lecciones</span><span>60 min</span>
+                    </div>
+                    <div class="course-temas">
+                        <span class="tema-tag">Gastos fijos y variables</span>
+                        <span class="tema-tag">Categorías</span>
+                        <span class="tema-tag">Seguimiento</span>
+                    </div>
+                    <a class="btn-course">Ver curso</a>
+                </div>
+
+                <!-- 3 -->
+                <div class="course-card" data-nivel="basico" onclick="abrirCurso(2)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto4.jpg') }}" alt="Deudas"></div>
+                        <span class="nivel-badge basico">Básico</span>
                     </div>
                     <h3>Gestión de Deudas</h3>
-                    <p>Estrategias probadas para salir de deudas rápidamente y mejorar tu historial crediticio.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto5.jpg') }}" alt="Jubilación">
+                    <p>Estrategias probadas para salir de deudas más rápido, negociar tasas y mejorar tu historial crediticio.</p>
+                    <div class="course-meta">
+                        <span>5 lecciones</span><span>55 min</span>
                     </div>
-                    <h3>Planificación de Jubilación</h3>
-                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto6.jpg') }}" alt="Jubilación">
+                    <div class="course-temas">
+                        <span class="tema-tag">Método bola de nieve</span>
+                        <span class="tema-tag">Score crediticio</span>
+                        <span class="tema-tag">Renegociación</span>
                     </div>
-                    <h3>Planificación de Jubilación</h3>
-                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
+                    <a class="btn-course">Ver curso</a>
                 </div>
 
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto7.jpg') }}" alt="Jubilación">
+                <!-- 4 -->
+                <div class="course-card" data-nivel="intermedio" onclick="abrirCurso(3)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto3jpg') }}" alt="Inversión"></div>
+                        <span class="nivel-badge intermedio">Intermedio</span>
                     </div>
-                    <h3>Planificación de Jubilación</h3>
-                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto8.jpg') }}" alt="Jubilación">
+                    <h3>Inversión para Principiantes</h3>
+                    <p>Conoce los instrumentos de inversión más seguros y rentables disponibles en Colombia para hacer crecer tu dinero.</p>
+                    <div class="course-meta">
+                        <span>6 lecciones</span><span>75 min</span>
                     </div>
-                    <h3>Planificación de Jubilación</h3>
-                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
-                </div>
-
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto9.jpg') }}" alt="Jubilación">
+                    <div class="course-temas">
+                        <span class="tema-tag">CDT y fondos</span>
+                        <span class="tema-tag">Riesgo y rentabilidad</span>
+                        <span class="tema-tag">Diversificación</span>
                     </div>
-                    <h3>Planificación de Jubilación</h3>
-                    <p>Asegura tu futuro financiero entendiendo las opciones de ahorro para el retiro disponibles.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
+                    <a class="btn-course">Ver curso</a>
                 </div>
 
-                <div class="course-card">
-                    <div class="course-icon">
-                        <img src="{{ url_for('static', filename='img/icon_curso_presupuesto10.jpg') }}" alt="Psicología">
+                <!-- 5 -->
+                <div class="course-card" data-nivel="intermedio" onclick="abrirCurso(4)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto5.jpg') }}" alt="Crédito"></div>
+                        <span class="nivel-badge intermedio">Intermedio</span>
+                    </div>
+                    <h3>Crédito Inteligente</h3>
+                    <p>Aprende a usar el crédito como herramienta a tu favor: cuándo endeudarse, qué productos elegir y cómo maximizar beneficios.</p>
+                    <div class="course-meta">
+                        <span>5 lecciones</span><span>60 min</span>
+                    </div>
+                    <div class="course-temas">
+                        <span class="tema-tag">Tarjetas de crédito</span>
+                        <span class="tema-tag">Tasa efectiva</span>
+                        <span class="tema-tag">Cupo rotativo</span>
+                    </div>
+                    <a class="btn-course">Ver curso</a>
+                </div>
+
+                <!-- 6 -->
+                <div class="course-card" data-nivel="intermedio" onclick="abrirCurso(5)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto6.jpg') }}" alt="Impuestos"></div>
+                        <span class="nivel-badge intermedio">Intermedio</span>
+                    </div>
+                    <h3>Impuestos Personales en Colombia</h3>
+                    <p>Entiende qué impuestos te aplican, cómo declarar renta correctamente y cómo aprovechar beneficios tributarios legales.</p>
+                    <div class="course-meta">
+                        <span>4 lecciones</span><span>50 min</span>
+                    </div>
+                    <div class="course-temas">
+                        <span class="tema-tag">Declaración de renta</span>
+                        <span class="tema-tag">GMF 4x1000</span>
+                        <span class="tema-tag">Beneficios tributarios</span>
+                    </div>
+                    <a class="btn-course">Ver curso</a>
+                </div>
+
+                <!-- 7 -->
+                <div class="course-card" data-nivel="avanzado" onclick="abrirCurso(6)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto7.jpg') }}" alt="Jubilación"></div>
+                        <span class="nivel-badge avanzado">Avanzado</span>
+                    </div>
+                    <h3>Planificación para el Retiro</h3>
+                    <p>Diseña tu estrategia de pensión y ahorro voluntario para garantizar una vejez financieramente tranquila y digna.</p>
+                    <div class="course-meta">
+                        <span>6 lecciones</span><span>80 min</span>
+                    </div>
+                    <div class="course-temas">
+                        <span class="tema-tag">Pensión pública vs privada</span>
+                        <span class="tema-tag">AFC y voluntario</span>
+                        <span class="tema-tag">Simulación</span>
+                    </div>
+                    <a class="btn-course">Ver curso</a>
+                </div>
+
+                <!-- 8 -->
+                <div class="course-card" data-nivel="avanzado" onclick="abrirCurso(7)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto8.jpg') }}" alt="Bolsa"></div>
+                        <span class="nivel-badge avanzado">Avanzado</span>
+                    </div>
+                    <h3>Bolsa de Valores y Acciones</h3>
+                    <p>Descubre cómo funciona el mercado bursátil colombiano e internacional y cómo construir un portafolio accionario.</p>
+                    <div class="course-meta">
+                        <span>7 lecciones</span><span>90 min</span>
+                    </div>
+                    <div class="course-temas">
+                        <span class="tema-tag">BVC y NYSE</span>
+                        <span class="tema-tag">Análisis técnico</span>
+                        <span class="tema-tag">ETFs</span>
+                    </div>
+                    <a class="btn-course">Ver curso</a>
+                </div>
+
+                <!-- 9 -->
+                <div class="course-card" data-nivel="avanzado" onclick="abrirCurso(8)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto9.jpg') }}" alt="Negocio"></div>
+                        <span class="nivel-badge avanzado">Avanzado</span>
+                    </div>
+                    <h3>Finanzas para Emprendedores</h3>
+                    <p>Aprende a separar las finanzas de tu negocio de las personales, controlar el flujo de caja y acceder a financiamiento.</p>
+                    <div class="course-meta">
+                        <span>6 lecciones</span><span>70 min</span>
+                    </div>
+                    <div class="course-temas">
+                        <span class="tema-tag">Flujo de caja</span>
+                        <span class="tema-tag">Capital de trabajo</span>
+                        <span class="tema-tag">Crédito empresarial</span>
+                    </div>
+                    <a class="btn-course">Ver curso</a>
+                </div>
+
+                <!-- 10 -->
+                <div class="course-card" data-nivel="basico" onclick="abrirCurso(9)">
+                    <div class="course-top">
+                        <div class="course-icon"><img src="{{ url_for('static', filename='img/icon_curso_presupuesto10.jpg') }}" alt="Psicología"></div>
+                        <span class="nivel-badge basico">Básico</span>
                     </div>
                     <h3>Psicología del Dinero</h3>
-                    <p>Entiende cómo tus emociones afectan tus decisiones financieras y cómo desarrollar una mentalidad de abundancia.</p>
-                    <a href="#" class="btn-course">Comenzar</a>
+                    <p>Entiende cómo tus emociones y creencias sobre el dinero impactan tus decisiones financieras y aprende a cambiarlas.</p>
+                    <div class="course-meta">
+                        <span>4 lecciones</span><span>40 min</span>
+                    </div>
+                    <div class="course-temas">
+                        <span class="tema-tag">Sesgos cognitivos</span>
+                        <span class="tema-tag">Mentalidad de abundancia</span>
+                        <span class="tema-tag">Hábitos</span>
+                    </div>
+                    <a class="btn-course">Ver curso</a>
                 </div>
+
             </div>
         </div>
     </main>
+
+    <!-- MODAL DETALLE CURSO -->
+    <div id="cursoModal" class="edu-modal-overlay" onclick="if(event.target===this)cerrarCurso()">
+        <div class="edu-modal-box">
+            <button class="edu-modal-close" onclick="cerrarCurso()">&times;</button>
+            <div id="cursoModalContenido"></div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-bottom">
             <p>&copy; 2026 FinanceUp. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+    const CURSOS = [
+        {
+            titulo: "Fundamentos del Ahorro",
+            nivel: "Básico", duracion: "45 min", lecciones: 4,
+            descripcion: "El ahorro es la base de toda salud financiera. En este curso aprenderás por qué ahorrar no es solo guardar dinero, sino construir libertad. Desarrollarás una metodología clara y automatizada para que el ahorro ocurra sin esfuerzo adicional.",
+            temas: ["¿Qué es realmente el ahorro y por qué importa?", "Crea tu fondo de emergencia (3 a 6 meses de gastos)", "La regla 50/30/20: distribuye tus ingresos con propósito", "Automatiza tu ahorro: tecnología a tu favor", "Cuentas de ahorro de alto rendimiento en Colombia"],
+            aprenderás: ["Calcular cuánto necesitas en tu fondo de emergencia", "Aplicar la regla 50/30/20 a tu salario", "Configurar débitos automáticos para ahorrar sin pensarlo", "Elegir la mejor cuenta de ahorros según tu perfil"]
+        },
+        {
+            titulo: "Presupuesto Mensual Inteligente",
+            nivel: "Básico", duracion: "60 min", lecciones: 5,
+            descripcion: "Un presupuesto no es una restricción, es un plan. Este curso te enseña a crear un presupuesto realista que refleje tus valores y metas, no uno que te haga sentir culpable por cada gasto.",
+            temas: ["Diferencia entre gastos fijos, variables y discrecionales", "Método de sobres digitales: asigna cada peso a un propósito", "Cómo revisar y ajustar tu presupuesto mensualmente", "Aplicaciones y herramientas gratuitas para el seguimiento", "Qué hacer cuando el mes supera al presupuesto"],
+            aprenderás: ["Diseñar tu primer presupuesto mensual completo", "Categorizar tus gastos de forma efectiva", "Usar Finance Up para monitorear tu plan", "Adaptar el presupuesto ante imprevistos sin frustrarte"]
+        },
+        {
+            titulo: "Gestión de Deudas",
+            nivel: "Básico", duracion: "55 min", lecciones: 5,
+            descripcion: "Las deudas no son el enemigo, la ignorancia sobre ellas sí. Aprende a entender cada deuda que tienes, priorizarlas estratégicamente y liberarte de ellas más rápido de lo que imaginas.",
+            temas: ["Tipos de deuda: buena vs mala deuda", "Método bola de nieve vs método avalancha", "Cómo negociar tasas con tu banco", "Centralización de deudas (libre inversión)", "Score crediticio: qué es y cómo mejorarlo"],
+            aprenderás: ["Hacer un inventario completo de tus deudas", "Elegir el método de pago más efectivo para tu caso", "Negociar condiciones con entidades financieras", "Mejorar tu score crediticio en 6 meses"]
+        },
+        {
+            titulo: "Inversión para Principiantes",
+            nivel: "Intermedio", duracion: "75 min", lecciones: 6,
+            descripcion: "Invertir no es solo para ricos. Con cualquier monto puedes empezar a construir riqueza. Este curso explica los principales instrumentos de inversión disponibles en Colombia, sus riesgos y cómo elegir el adecuado.",
+            temas: ["¿Qué es invertir y por qué el ahorro solo no es suficiente?", "CDT: el instrumento más seguro del mercado", "Fondos de inversión colectiva (FICs)", "Fiducias y carteras colectivas", "Plataformas para invertir desde $50.000 COP", "El efecto del interés compuesto a largo plazo"],
+            aprenderás: ["Diferenciar riesgo bajo, medio y alto en inversiones", "Abrir un CDT o fondo de inversión", "Calcular el rendimiento esperado de una inversión", "Construir un portafolio básico diversificado"]
+        },
+        {
+            titulo: "Crédito Inteligente",
+            nivel: "Intermedio", duracion: "60 min", lecciones: 5,
+            descripcion: "El crédito bien usado es una palanca de crecimiento. El crédito mal usado es una trampa. Este curso te enseña a usarlo como herramienta estratégica para mejorar tu calidad de vida sin endeudarte de más.",
+            temas: ["Anatomía de un crédito: capital, tasa, plazo, cuota", "Tarjeta de crédito: ventajas reales si la usas bien", "Cómo leer una tabla de amortización", "Diferencia entre tasa nominal y efectiva anual (EA)", "Cuándo vale la pena endeudarse y cuándo no"],
+            aprenderás: ["Calcular el costo real de cualquier crédito", "Usar las tarjetas de crédito sin pagar intereses", "Comparar ofertas crediticias entre bancos", "Decidir si conviene financiar una compra grande"]
+        },
+        {
+            titulo: "Impuestos Personales en Colombia",
+            nivel: "Intermedio", duracion: "50 min", lecciones: 4,
+            descripcion: "Entender el sistema tributario colombiano te permite pagar lo justo, aprovechar beneficios legales y evitar sanciones. Una guía práctica sin tecnicismos para personas naturales.",
+            temas: ["¿Quién está obligado a declarar renta en Colombia?", "Conceptos clave: ingresos, costos, deducciones y patrimonio", "Beneficios tributarios: AFC, voluntario, dependientes", "El GMF (4x1000): cuándo se cobra y cómo evitarlo legalmente"],
+            aprenderás: ["Saber si debes presentar declaración de renta", "Identificar qué deducciones puedes aplicar", "Ahorrar impuestos usando cuentas AFC", "Presentar la declaración sin contratar contador"]
+        },
+        {
+            titulo: "Planificación para el Retiro",
+            nivel: "Avanzado", duracion: "80 min", lecciones: 6,
+            descripcion: "La pensión del sistema público puede no ser suficiente. Aprende a complementarla con ahorro voluntario y construye un plan personalizado para disfrutar una vejez financieramente independiente.",
+            temas: ["Sistema pensional colombiano: RPM vs RAIS", "Colpensiones vs fondos privados: comparativa real", "Ahorro pensional voluntario (APV) y sus beneficios", "Cuentas AFC: doble beneficio (vivienda + pensión)", "Simulación: ¿cuánto necesitas ahorrar para retirarte?", "Estrategias de inversión para el largo plazo"],
+            aprenderás: ["Calcular tu mesada pensional proyectada", "Decidir si conviene estar en Colpensiones o fondo privado", "Empezar un plan de ahorro voluntario desde hoy", "Proyectar tu patrimonio al momento del retiro"]
+        },
+        {
+            titulo: "Bolsa de Valores y Acciones",
+            nivel: "Avanzado", duracion: "90 min", lecciones: 7,
+            descripcion: "El mercado bursátil es accesible para cualquier colombiano. Aprende cómo funciona la BVC, qué son las acciones, los ETFs, y cómo construir un portafolio accionario con criterio.",
+            temas: ["¿Qué es la bolsa y cómo funciona la BVC?", "Acciones: qué compras, qué derechos tienes", "Análisis fundamental vs análisis técnico básico", "ETFs: la forma más eficiente de invertir en bolsa", "Plataformas disponibles en Colombia para comprar acciones", "Diversificación geográfica y sectorial", "Gestión emocional del inversionista en mercados volátiles"],
+            aprenderás: ["Abrir una cuenta de inversión en bolsa desde Colombia", "Evaluar una acción antes de comprarla", "Construir un portafolio diversificado con ETFs", "Mantener la calma en caídas del mercado"]
+        },
+        {
+            titulo: "Finanzas para Emprendedores",
+            nivel: "Avanzado", duracion: "70 min", lecciones: 6,
+            descripcion: "El mayor error de los emprendedores es mezclar las finanzas del negocio con las personales. Aprende a estructurar tus finanzas empresariales, controlar el flujo de caja y acceder a financiamiento productivo.",
+            temas: ["Por qué separar finanzas personales y empresariales", "Estado de resultados básico para tu negocio", "Flujo de caja: el pulso de tu empresa", "Capital de trabajo y ciclo de operación", "Fuentes de financiamiento para PYMES en Colombia", "Indicadores financieros clave para tomar decisiones"],
+            aprenderás: ["Construir un P&G básico mensual de tu negocio", "Proyectar el flujo de caja a 3 meses", "Identificar cuándo tu negocio necesita financiamiento", "Acceder a líneas de crédito para PYMES en bancos y Bancóldex"]
+        },
+        {
+            titulo: "Psicología del Dinero",
+            nivel: "Básico", duracion: "40 min", lecciones: 4,
+            descripcion: "Las matemáticas del dinero son simples. Lo difícil es el comportamiento humano. Este curso explora cómo los sesgos, miedos y creencias heredadas sabotean tus finanzas y cómo reprogramarlos.",
+            temas: ["Sesgos cognitivos más comunes en decisiones financieras", "El costo emocional del dinero: ansiedad, culpa y miedo", "Creencias limitantes sobre el dinero que heredamos", "Cómo construir una mentalidad de abundancia real"],
+            aprenderás: ["Identificar tus propios sesgos financieros", "Reconocer patrones de gasto emocional", "Replantear creencias negativas sobre el dinero", "Tomar decisiones financieras más racionales y serenas"]
+        }
+    ];
+
+    function abrirCurso(i) {
+        const c = CURSOS[i];
+        const nColor = c.nivel === 'Básico' ? '#16a34a' : c.nivel === 'Intermedio' ? '#2563eb' : '#7c3aed';
+        document.getElementById('cursoModalContenido').innerHTML = `
+            <div class="edu-modal-header">
+                <span class="nivel-badge ${c.nivel.toLowerCase()}">${c.nivel}</span>
+                <h2>${c.titulo}</h2>
+                <div class="edu-modal-meta">
+                    <span>${c.lecciones} lecciones</span>
+                    <span>${c.duracion}</span>
+                    <span>Gratuito</span>
+                </div>
+            </div>
+            <p class="edu-modal-desc">${c.descripcion}</p>
+            <div class="edu-modal-dos-col">
+                <div>
+                    <h4>Contenido del curso</h4>
+                    <ol class="edu-lista">
+                        ${c.temas.map((t,n) => `<li><span class="num">${n+1}</span>${t}</li>`).join('')}
+                    </ol>
+                </div>
+                <div>
+                    <h4>Lo que aprenderás</h4>
+                    <ul class="edu-lista aprende">
+                        ${c.aprenderás.map(a => `<li><span class="check">✓</span>${a}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+            <a href="#" class="edu-modal-btn" onclick="return false">Comenzar curso</a>
+        `;
+        const modal = document.getElementById('cursoModal');
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('open'), 10);
+    }
+
+    function cerrarCurso() {
+        const modal = document.getElementById('cursoModal');
+        modal.classList.remove('open');
+        setTimeout(() => modal.style.display = 'none', 250);
+    }
+
+    function filtrarCursos(el) {
+        document.querySelectorAll('.edu-pill').forEach(p => p.classList.remove('activo'));
+        el.classList.add('activo');
+        const nivel = el.getAttribute('data-nivel');
+        document.querySelectorAll('.course-card').forEach(c => {
+            c.style.display = (nivel === 'todos' || c.getAttribute('data-nivel') === nivel) ? '' : 'none';
+        });
+    }
+    </script>
 
 </body>
 </html>

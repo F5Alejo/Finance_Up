@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tus Finanzas - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='finanzas.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="navbar">
+    <div class="logo"><a href="{{ url_for('inicio') }}" class="logo-finance">Finance <span class="logo-green">Up</span></a></div>
+    <nav class="nav-container">
+        <div class="nav-links">
+            <a href="{{ url_for('inicio') }}">Inicio</a>
+            <a href="{{ url_for('finanzas') }}" style="color:#16a34a;font-weight:700;">Tus Finanzas</a>
+            <a href="{{ url_for('educacion') }}">Educación</a>
+            <a href="{{ url_for('alianzas') }}">Alianzas</a>
+            <a href="{{ url_for('soporte') }}">Soporte</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('login') }}" class="login-link">Iniciar sesión</a>
+            <a href="{{ url_for('register') }}" class="btn-registrarte">Registrarte</a>
+        </div>
+    </nav>
+</header>
+
+<div class="fin-layout">
+  <!-- SIDEBAR -->
+  <aside class="fin-sidebar">
+    <div class="sidebar-profile">
+      <div class="profile-avatar" id="avatarInitials">AJ</div>
+      <div class="profile-name">Alejandro</div>
+      <div class="profile-plan">Plan Premium</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Principal</div>
+      <button class="nav-item active" data-view="view-dashboard">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Resumen
+      </button>
+      <div class="nav-section-label">Movimientos</div>
+      <button class="nav-item" data-view="view-ingresos">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 4v16m8-8H4"/></svg>
+        Ingresos
+      </button>
+      <button class="nav-item" data-view="view-egresos">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 12H4"/></svg>
+        Egresos
+      </button>
+      <div class="nav-section-label">Análisis</div>
+      <button class="nav-item" data-view="view-patrimonio">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8"/></svg>
+        Activos & Pasivos
+      </button>
+      <button class="nav-item" data-view="view-metas">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+        Metas
+      </button>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="fin-main">
+
+    <!-- DASHBOARD VIEW -->
+    <div class="fin-view active" id="view-dashboard">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Estado Financiero</div>
+          <div class="page-subtitle" id="dash-subtitle">Resumen del período actual</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-ghost" onclick="limpiarDatos()">Reiniciar datos</button>
+          <button class="btn btn-accent" onclick="abrirModal()">+ Nuevo registro</button>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-row">
+        <div class="kpi-card k-income">
+          <div class="kpi-label">Ingresos totales</div>
+          <div class="kpi-value positive" id="kpi-ingresos">$0</div>
+          <div class="kpi-delta" id="kpi-ingresos-count">0 registros</div>
+        </div>
+        <div class="kpi-card k-expense">
+          <div class="kpi-label">Egresos totales</div>
+          <div class="kpi-value negative" id="kpi-egresos">$0</div>
+          <div class="kpi-delta" id="kpi-egresos-count">0 registros</div>
+        </div>
+        <div class="kpi-card k-balance">
+          <div class="kpi-label">Balance neto</div>
+          <div class="kpi-value neutral" id="kpi-balance">$0</div>
+          <div class="kpi-delta" id="kpi-balance-status">Sin movimientos</div>
+        </div>
+        <div class="kpi-card k-net">
+          <div class="kpi-label">Ratio ahorro</div>
+          <div class="kpi-value net" id="kpi-ratio">0%</div>
+          <div class="kpi-delta">Del ingreso total</div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Flujo por categoría</div>
+              <div class="card-subtitle">Ingresos vs Egresos agrupados</div>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="chartFlujo"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Distribución de gastos</div>
+              <div class="card-subtitle">Por categoría</div>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="chartDist"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Recent transactions -->
+      <div>
+        <div class="section-header">
+          <div class="section-title">Últimos movimientos</div>
+          <button class="btn btn-ghost" onclick="switchView('view-ingresos')">Ver todos</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Fecha</th><th>Tipo</th><th>Descripción</th><th>Categoría</th><th>Monto</th></tr></thead>
+            <tbody id="tbody-recientes"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- INGRESOS VIEW -->
+    <div class="fin-view" id="view-ingresos">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Ingresos</div>
+          <div class="page-subtitle">Gestiona tus fuentes de ingresos</div>
+        </div>
+        <button class="btn btn-accent" onclick="abrirModal('ingreso')">+ Agregar ingreso</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Frecuencia</th><th>Monto</th><th>Acciones</th></tr></thead>
+          <tbody id="tbody-ingresos"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EGRESOS VIEW -->
+    <div class="fin-view" id="view-egresos">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Egresos</div>
+          <div class="page-subtitle">Registra y controla tus gastos</div>
+        </div>
+        <button class="btn btn-accent" onclick="abrirModal('egreso')">+ Agregar egreso</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Método de pago</th><th>Monto</th><th>Acciones</th></tr></thead>
+          <tbody id="tbody-egresos"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PATRIMONIO VIEW -->
+    <div class="fin-view" id="view-patrimonio">
+      <div class="page-header">
+        <div><div class="page-title">Activos & Pasivos</div><div class="page-subtitle">Tu patrimonio neto calculado</div></div>
+        <button class="btn btn-accent" onclick="abrirModal('activo')">+ Agregar activo/pasivo</button>
+      </div>
+      <div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:0">
+        <div class="kpi-card k-income"><div class="kpi-label">Total Activos</div><div class="kpi-value positive" id="kpi-total-activos">$0</div></div>
+        <div class="kpi-card k-expense"><div class="kpi-label">Total Pasivos</div><div class="kpi-value negative" id="kpi-total-pasivos">$0</div></div>
+        <div class="kpi-card k-net"><div class="kpi-label">Patrimonio Neto</div><div class="kpi-value net" id="kpi-patrimonio-neto">$0</div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Activos</div><button class="btn btn-accent" style="font-size:0.8rem;padding:7px 14px" onclick="abrirModalAP('activo')">+ Agregar</button></div>
+          <div class="table-wrap" style="border:none;"><table class="data-table"><thead><tr><th>Nombre</th><th>Tipo</th><th>Valor estimado</th><th>Fecha adq.</th><th></th></tr></thead><tbody id="tbody-activos"></tbody></table></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Pasivos</div><button class="btn btn-accent" style="font-size:0.8rem;padding:7px 14px" onclick="abrirModalAP('pasivo')">+ Agregar</button></div>
+          <div class="table-wrap" style="border:none;"><table class="data-table"><thead><tr><th>Nombre</th><th>Tipo</th><th>Monto deuda</th><th>Cuota/mes</th><th></th></tr></thead><tbody id="tbody-pasivos"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METAS VIEW -->
+    <div class="fin-view" id="view-metas">
+      <div class="page-header">
+        <div><div class="page-title">Metas Financieras</div><div class="page-subtitle">Seguimiento de tus objetivos</div></div>
+        <button class="btn btn-accent" onclick="abrirModalMeta()">+ Nueva meta</button>
+      </div>
+      <div class="card"><div class="progress-list" id="lista-metas"></div></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL ACTIVOS / PASIVOS -->
+<div class="modal-overlay" id="modalAP" onclick="if(event.target===this)cerrarModalAP()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="cerrarModalAP()">&times;</button>
+    <div class="modal-title" id="modalAPTitulo">Nuevo activo</div>
+    <div class="form-grid">
+      <div class="form-field full">
+        <label class="form-label">Nombre</label>
+        <input class="form-input" id="apNombre" type="text" placeholder="Ej. Apartamento, Carro...">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Tipo</label>
+        <select class="form-input" id="apTipo" onchange="checkOtroAP()"></select>
+      </div>
+      <div class="form-field" id="apOtroWrap" style="display:none">
+        <label class="form-label">Especifica el tipo</label>
+        <input class="form-input" id="apOtroVal" type="text" placeholder="Nombre del tipo...">
+      </div>
+      <div class="form-field">
+        <label class="form-label" id="apMontoLabel">Valor estimado ($)</label>
+        <input class="form-input" id="apMonto" type="number" min="0" step="1000" placeholder="0">
+      </div>
+      <div class="form-field" id="apCuotaWrap" style="display:none">
+        <label class="form-label">Cuota mensual ($)</label>
+        <input class="form-input" id="apCuota" type="number" min="0" step="1000" placeholder="0">
+      </div>
+      <div class="form-field">
+        <label class="form-label" id="apFechaLabel">Fecha de adquisición</label>
+        <input class="form-input" id="apFecha" type="date">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="cerrarModalAP()">Cancelar</button>
+      <button class="btn btn-accent" onclick="guardarAP()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL METAS -->
+<div class="modal-overlay" id="modalMeta" onclick="if(event.target===this)cerrarModalMeta()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="cerrarModalMeta()">&times;</button>
+    <div class="modal-title">Nueva meta financiera</div>
+    <div class="form-grid">
+      <div class="form-field full">
+        <label class="form-label">Nombre de la meta</label>
+        <input class="form-input" id="metaNombre" type="text" placeholder="Ej. Fondo de emergencia">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Monto objetivo ($)</label>
+        <input class="form-input" id="metaObjetivo" type="number" min="0" step="1000" placeholder="0">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Ahorro actual ($)</label>
+        <input class="form-input" id="metaActual" type="number" min="0" step="1000" placeholder="0">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Tiempo estimado</label>
+        <input class="form-input" id="metaTiempo" type="text" placeholder="Ej. 12 meses">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="cerrarModalMeta()">Cancelar</button>
+      <button class="btn btn-accent" onclick="guardarMeta()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="mainModal" onclick="modalClickOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="cerrarModal()">&times;</button>
+    <div class="modal-title" id="modalTitulo">Nuevo registro</div>
+
+    <div class="type-toggle" id="tipoToggle">
+      <input type="radio" name="tipo" id="tipoIngreso" value="ingreso" checked>
+      <label for="tipoIngreso">Ingreso (+)</label>
+      <input type="radio" name="tipo" id="tipoEgreso" value="egreso">
+      <label for="tipoEgreso">Egreso (-)</label>
+    </div>
+    <div style="height:16px"></div>
+
+    <div class="form-grid">
+      <div class="form-field full">
+        <label class="form-label">Descripción</label>
+        <input class="form-input" id="fDesc" type="text" placeholder="Ej. Salario quincenal">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Monto ($)</label>
+        <input class="form-input" id="fMonto" type="number" min="0" step="0.01" placeholder="0.00">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Fecha</label>
+        <input class="form-input" id="fFecha" type="date">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Categoría</label>
+        <select class="form-input" id="fCategoria">
+          <option value="">Seleccionar...</option>
+        </select>
+      </div>
+      <div class="form-field" id="fFrecuenciaWrap">
+        <label class="form-label">Frecuencia</label>
+        <select class="form-input" id="fFrecuencia">
+          <option value="Único">Único</option>
+          <option value="Diario">Diario</option>
+          <option value="Semanal">Semanal</option>
+          <option value="Mensual">Mensual</option>
+        </select>
+      </div>
+      <div class="form-field" id="fMetodoWrap" style="display:none;">
+        <label class="form-label">Método de pago</label>
+        <select class="form-input" id="fMetodo">
+          <option value="Efectivo">Efectivo</option>
+          <option value="Tarjeta Débito">Tarjeta Débito</option>
+          <option value="Tarjeta Crédito">Tarjeta Crédito</option>
+          <option value="Transferencia">Transferencia</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn btn-accent" onclick="guardarRegistro()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CATEGORÍAS ──────────────────────────────────
+const CAT_INGRESO = ['Salario','Negocio','Freelance','Inversión','Venta','Extra','Otro'];
+const CAT_EGRESO  = ['Vivienda','Comida','Transporte','Salud','Educación','Ocio','Servicios','Deuda','Otro'];
+const TAG_COLORS  = {
+  Salario:'green',Negocio:'blue',Freelance:'purple',Inversión:'blue',Venta:'green',Extra:'gray',
+  Vivienda:'blue',Comida:'yellow',Transporte:'gray',Salud:'green',Educación:'purple',
+  Ocio:'yellow',Servicios:'gray',Deuda:'red',Otro:'gray'
+};
+
+// ── ESTADO ──────────────────────────────────────
+let DB = JSON.parse(localStorage.getItem('financeup_db') || '{"registros":[],"activos":[],"pasivos":[],"metas":[]}');
+let editId = null;
+let modalTipo = 'ingreso';
+
+function saveDB() { localStorage.setItem('financeup_db', JSON.stringify(DB)); }
+
+// ── CHARTS ──────────────────────────────────────
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#6b7280';
+Chart.defaults.plugins.tooltip.backgroundColor = '#0d0f14';
+Chart.defaults.plugins.tooltip.padding = 10;
+Chart.defaults.plugins.tooltip.cornerRadius = 6;
+
+const ctxFlujo = document.getElementById('chartFlujo').getContext('2d');
+const flujoChart = new Chart(ctxFlujo, {
+  type:'bar',
+  data:{ labels:[], datasets:[
+    { label:'Ingresos', data:[], backgroundColor:'rgba(22,163,74,0.8)', borderRadius:4 },
+    { label:'Egresos',  data:[], backgroundColor:'rgba(220,38,38,0.7)', borderRadius:4 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ position:'top', labels:{ boxWidth:12, font:{ size:12 } } } },
+    scales:{ x:{ grid:{ display:false } }, y:{ beginAtZero:true, grid:{ color:'#f3f4f6' } } }
+  }
+});
+
+const ctxDist = document.getElementById('chartDist').getContext('2d');
+const distChart = new Chart(ctxDist, {
+  type:'doughnut',
+  data:{ labels:[], datasets:[{ data:[], backgroundColor:['#16a34a','#2563eb','#7c3aed','#d97706','#dc2626','#6b7280','#0891b2','#be185d'], borderWidth:0, hoverOffset:6 }] },
+  options:{ responsive:true, maintainAspectRatio:false, cutout:'68%',
+    plugins:{ legend:{ position:'right', labels:{ boxWidth:12, font:{ size:12 }, padding:12 } } }
+  }
+});
+
+// ── ACTUALIZAR CHARTS Y KPIs ────────────────────
+function actualizarTodo() {
+  const ingresos = DB.registros.filter(r => r.tipo === 'ingreso');
+  const egresos  = DB.registros.filter(r => r.tipo === 'egreso');
+  const totalI = ingresos.reduce((s,r) => s + r.monto, 0);
+  const totalE = egresos.reduce((s,r)  => s + r.monto, 0);
+  const balance = totalI - totalE;
+  const ratio = totalI > 0 ? Math.round((balance / totalI) * 100) : 0;
+
+  document.getElementById('kpi-ingresos').textContent = fmt(totalI);
+  document.getElementById('kpi-egresos').textContent  = fmt(totalE);
+  document.getElementById('kpi-ingresos-count').textContent = ingresos.length + ' registro' + (ingresos.length !== 1 ? 's' : '');
+  document.getElementById('kpi-egresos-count').textContent  = egresos.length  + ' registro' + (egresos.length !== 1 ? 's' : '');
+
+  const balEl = document.getElementById('kpi-balance');
+  balEl.textContent = (balance >= 0 ? '+' : '') + fmt(balance);
+  balEl.className = 'kpi-value ' + (balance >= 0 ? 'positive' : 'negative');
+  document.getElementById('kpi-balance-status').textContent = balance >= 0 ? 'Saldo positivo' : 'Saldo negativo';
+  document.getElementById('kpi-ratio').textContent = ratio + '%';
+
+  // Chart flujo — agrupar por categoría
+  const catMap = {};
+  DB.registros.forEach(r => {
+    if (!catMap[r.categoria]) catMap[r.categoria] = { i:0, e:0 };
+    if (r.tipo === 'ingreso') catMap[r.categoria].i += r.monto;
+    else catMap[r.categoria].e += r.monto;
+  });
+  const cats = Object.keys(catMap);
+  flujoChart.data.labels = cats;
+  flujoChart.data.datasets[0].data = cats.map(c => catMap[c].i);
+  flujoChart.data.datasets[1].data = cats.map(c => catMap[c].e);
+  flujoChart.update();
+
+  // Chart distribución — egresos por categoría
+  const distMap = {};
+  egresos.forEach(r => { distMap[r.categoria] = (distMap[r.categoria] || 0) + r.monto; });
+  distChart.data.labels   = Object.keys(distMap);
+  distChart.data.datasets[0].data = Object.values(distMap);
+  distChart.update();
+
+  renderTablas();
+}
+
+// ── FORMATO ─────────────────────────────────────
+function fmt(n) {
+  return '$' + Math.abs(n).toLocaleString('es-CO', { minimumFractionDigits:0, maximumFractionDigits:0 });
+}
+
+function tagHTML(cat) {
+  const col = TAG_COLORS[cat] || 'gray';
+  return `<span class="tag tag-${col}">${cat}</span>`;
+}
+
+// ── RENDER TABLAS ────────────────────────────────
+function renderTablas() {
+  const sorted = [...DB.registros].sort((a,b) => new Date(b.fecha) - new Date(a.fecha));
+
+  // Recientes (últimos 5)
+  const recientes = sorted.slice(0, 5);
+  const tbR = document.getElementById('tbody-recientes');
+  tbR.innerHTML = recientes.length === 0
+    ? `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">—</div><p>No hay movimientos aún. Agrega tu primer registro.</p></div></td></tr>`
+    : recientes.map(r => `<tr>
+        <td>${r.fecha}</td>
+        <td><span class="tag tag-${r.tipo === 'ingreso' ? 'green' : 'red'}">${r.tipo === 'ingreso' ? 'Ingreso' : 'Egreso'}</span></td>
+        <td>${r.desc}</td>
+        <td>${tagHTML(r.categoria)}</td>
+        <td class="amount ${r.tipo === 'ingreso' ? 'positive' : 'negative'}">${r.tipo === 'ingreso' ? '+' : '-'}${fmt(r.monto)}</td>
+      </tr>`).join('');
+
+  // Ingresos
+  const ingRows = sorted.filter(r => r.tipo === 'ingreso');
+  const tbI = document.getElementById('tbody-ingresos');
+  tbI.innerHTML = ingRows.length === 0
+    ? `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">—</div><p>No tienes ingresos registrados.</p></div></td></tr>`
+    : ingRows.map(r => `<tr>
+        <td>${r.fecha}</td><td>${r.desc}</td><td>${tagHTML(r.categoria)}</td>
+        <td><span class="tag tag-gray">${r.frecuencia || 'Único'}</span></td>
+        <td class="amount positive">+${fmt(r.monto)}</td>
+        <td class="actions-cell">
+          <button class="btn-icon" onclick="editarRegistro('${r.id}')">Editar</button>
+          <button class="btn btn-danger-ghost" onclick="eliminarRegistro('${r.id}')">Eliminar</button>
+        </td></tr>`).join('');
+
+  // Egresos
+  const egRows = sorted.filter(r => r.tipo === 'egreso');
+  const tbE = document.getElementById('tbody-egresos');
+  tbE.innerHTML = egRows.length === 0
+    ? `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">—</div><p>No tienes egresos registrados.</p></div></td></tr>`
+    : egRows.map(r => `<tr>
+        <td>${r.fecha}</td><td>${r.desc}</td><td>${tagHTML(r.categoria)}</td>
+        <td><span class="tag tag-gray">${r.metodo || 'Efectivo'}</span></td>
+        <td class="amount negative">-${fmt(r.monto)}</td>
+        <td class="actions-cell">
+          <button class="btn-icon" onclick="editarRegistro('${r.id}')">Editar</button>
+          <button class="btn btn-danger-ghost" onclick="eliminarRegistro('${r.id}')">Eliminar</button>
+        </td></tr>`).join('');
+}
+
+// ── MODAL ────────────────────────────────────────
+function abrirModal(tipo) {
+  editId = null;
+  modalTipo = tipo || 'ingreso';
+  document.getElementById('modalTitulo').textContent = 'Nuevo registro';
+  document.getElementById('fDesc').value   = '';
+  document.getElementById('fMonto').value  = '';
+  document.getElementById('fFecha').value  = new Date().toISOString().split('T')[0];
+  setTipoModal(modalTipo);
+  const modal = document.getElementById('mainModal');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('open'), 10);
+}
+
+function setTipoModal(tipo) {
+  modalTipo = tipo;
+  document.getElementById('tipoIngreso').checked = tipo === 'ingreso';
+  document.getElementById('tipoEgreso').checked  = tipo === 'egreso';
+  const cats = tipo === 'ingreso' ? CAT_INGRESO : CAT_EGRESO;
+  const sel = document.getElementById('fCategoria');
+  sel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  document.getElementById('fFrecuenciaWrap').style.display = tipo === 'ingreso' ? '' : 'none';
+  document.getElementById('fMetodoWrap').style.display     = tipo === 'egreso'  ? '' : 'none';
+}
+
+document.querySelectorAll('input[name="tipo"]').forEach(r => {
+  r.addEventListener('change', e => setTipoModal(e.target.value));
+});
+
+function cerrarModal() {
+  const modal = document.getElementById('mainModal');
+  modal.classList.remove('open');
+  setTimeout(() => { modal.style.display = 'none'; }, 200);
+}
+
+function modalClickOutside(e) { if (e.target === document.getElementById('mainModal')) cerrarModal(); }
+
+function guardarRegistro() {
+  const tipo  = modalTipo;
+  const desc  = document.getElementById('fDesc').value.trim();
+  const monto = parseFloat(document.getElementById('fMonto').value);
+  const fecha = document.getElementById('fFecha').value;
+  const cat   = document.getElementById('fCategoria').value;
+  if (!desc || !monto || monto <= 0 || !fecha || !cat) { alert('Completa todos los campos.'); return; }
+
+  const reg = {
+    id: editId || Date.now().toString(),
+    tipo, desc, monto, fecha, categoria: cat,
+    frecuencia: document.getElementById('fFrecuencia').value,
+    metodo:     document.getElementById('fMetodo').value,
+  };
+
+  if (editId) {
+    const idx = DB.registros.findIndex(r => r.id === editId);
+    if (idx !== -1) DB.registros[idx] = reg;
+  } else {
+    DB.registros.push(reg);
+  }
+  saveDB();
+  actualizarTodo();
+  cerrarModal();
+}
+
+function editarRegistro(id) {
+  const r = DB.registros.find(r => r.id === id);
+  if (!r) return;
+  editId = id;
+  document.getElementById('modalTitulo').textContent = 'Editar registro';
+  setTipoModal(r.tipo);
+  document.getElementById('fDesc').value      = r.desc;
+  document.getElementById('fMonto').value     = r.monto;
+  document.getElementById('fFecha').value     = r.fecha;
+  document.getElementById('fCategoria').value = r.categoria;
+  if (r.frecuencia) document.getElementById('fFrecuencia').value = r.frecuencia;
+  if (r.metodo)     document.getElementById('fMetodo').value     = r.metodo;
+  const modal = document.getElementById('mainModal');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('open'), 10);
+}
+
+function eliminarRegistro(id) {
+  if (!confirm('¿Eliminar este registro?')) return;
+  DB.registros = DB.registros.filter(r => r.id !== id);
+  saveDB();
+  actualizarTodo();
+}
+
+function limpiarDatos() {
+  if (!confirm('¿Estás seguro de que deseas reiniciar todos los datos?\n\nEsta acción eliminará permanentemente todos tus registros de ingresos, egresos, activos, pasivos y metas. No se puede deshacer.')) return;
+  if (!confirm('Confirmación final: ¿Eliminar TODOS los datos de Finance Up?')) return;
+  DB = { registros:[], activos:[], pasivos:[], metas:[] };
+  saveDB();
+  actualizarTodo();
+  alert('Datos reiniciados correctamente.');
+}
+
+// ── ACTIVOS & PASIVOS ────────────────────────────
+const TIPOS_ACTIVO = ['Inmueble','Vehículo','Cuenta bancaria','Inversión','Negocio','Tecnología','Joya/Arte','Otro'];
+const TIPOS_PASIVO = ['Hipoteca','Crédito de consumo','Tarjeta de crédito','Libranza','Crédito educativo','Préstamo personal','Otro'];
+let apEditId = null;
+let apTipoActual = 'activo';
+
+function abrirModalAP(tipo, id) {
+  apEditId = id || null;
+  apTipoActual = tipo;
+  const esActivo = tipo === 'activo';
+  document.getElementById('modalAPTitulo').textContent = (id ? 'Editar ' : 'Nuevo ') + tipo;
+  const tipos = esActivo ? TIPOS_ACTIVO : TIPOS_PASIVO;
+  document.getElementById('apTipo').innerHTML = tipos.map(t => `<option value="${t}">${t}</option>`).join('');
+  document.getElementById('apMontoLabel').textContent = esActivo ? 'Valor estimado ($)' : 'Monto total deuda ($)';
+  document.getElementById('apFechaLabel').textContent = esActivo ? 'Fecha de adquisición' : 'Fecha límite';
+  document.getElementById('apCuotaWrap').style.display = esActivo ? 'none' : '';
+  document.getElementById('apOtroWrap').style.display = 'none';
+  if (id) {
+    const arr = esActivo ? DB.activos : DB.pasivos;
+    const item = arr.find(x => x.id === id);
+    if (item) {
+      document.getElementById('apNombre').value  = item.nombre;
+      document.getElementById('apMonto').value   = item.monto;
+      document.getElementById('apFecha').value   = item.fecha || '';
+      if (item.cuota) document.getElementById('apCuota').value = item.cuota;
+      const tipoOpts = tipos;
+      const tipoMatch = tipoOpts.includes(item.tipo) ? item.tipo : 'Otro';
+      document.getElementById('apTipo').value = tipoMatch;
+      if (tipoMatch === 'Otro') {
+        document.getElementById('apOtroWrap').style.display = '';
+        document.getElementById('apOtroVal').value = item.tipo;
+      }
+    }
+  } else {
+    document.getElementById('apNombre').value = '';
+    document.getElementById('apMonto').value  = '';
+    document.getElementById('apFecha').value  = new Date().toISOString().split('T')[0];
+    document.getElementById('apCuota').value  = '';
+    document.getElementById('apOtroVal').value = '';
+  }
+  const modal = document.getElementById('modalAP');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('open'), 10);
+}
+
+function cerrarModalAP() {
+  const modal = document.getElementById('modalAP');
+  modal.classList.remove('open');
+  setTimeout(() => modal.style.display = 'none', 200);
+}
+
+function checkOtroAP() {
+  const val = document.getElementById('apTipo').value;
+  document.getElementById('apOtroWrap').style.display = val === 'Otro' ? '' : 'none';
+}
+
+function guardarAP() {
+  const nombre = document.getElementById('apNombre').value.trim();
+  const monto  = parseFloat(document.getElementById('apMonto').value);
+  const fecha  = document.getElementById('apFecha').value;
+  let tipo     = document.getElementById('apTipo').value;
+  if (tipo === 'Otro') {
+    const custom = document.getElementById('apOtroVal').value.trim();
+    if (!custom) { alert('Ingresa el nombre del tipo.'); return; }
+    tipo = custom;
+  }
+  if (!nombre || !monto || monto <= 0) { alert('Completa los campos obligatorios.'); return; }
+  const cuota = parseFloat(document.getElementById('apCuota').value) || 0;
+  const item = { id: apEditId || Date.now().toString(), nombre, tipo, monto, cuota, fecha };
+  const arr = apTipoActual === 'activo' ? DB.activos : DB.pasivos;
+  if (apEditId) {
+    const idx = arr.findIndex(x => x.id === apEditId);
+    if (idx !== -1) arr[idx] = item;
+  } else { arr.push(item); }
+  saveDB();
+  actualizarTodo();
+  cerrarModalAP();
+}
+
+function eliminarAP(tipo, id) {
+  if (!confirm('¿Eliminar este ' + tipo + '?')) return;
+  if (tipo === 'activo') DB.activos = DB.activos.filter(x => x.id !== id);
+  else DB.pasivos = DB.pasivos.filter(x => x.id !== id);
+  saveDB();
+  actualizarTodo();
+}
+
+// ── METAS ────────────────────────────────────────
+let metaEditId = null;
+
+function abrirModalMeta(id) {
+  metaEditId = id || null;
+  if (id) {
+    const m = DB.metas.find(x => x.id === id);
+    if (m) {
+      document.getElementById('metaNombre').value   = m.nombre;
+      document.getElementById('metaObjetivo').value = m.objetivo;
+      document.getElementById('metaActual').value   = m.actual;
+      document.getElementById('metaTiempo').value   = m.tiempo;
+    }
+  } else {
+    document.getElementById('metaNombre').value   = '';
+    document.getElementById('metaObjetivo').value = '';
+    document.getElementById('metaActual').value   = '';
+    document.getElementById('metaTiempo').value   = '';
+  }
+  const modal = document.getElementById('modalMeta');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('open'), 10);
+}
+
+function cerrarModalMeta() {
+  const modal = document.getElementById('modalMeta');
+  modal.classList.remove('open');
+  setTimeout(() => modal.style.display = 'none', 200);
+}
+
+function guardarMeta() {
+  const nombre   = document.getElementById('metaNombre').value.trim();
+  const objetivo = parseFloat(document.getElementById('metaObjetivo').value);
+  const actual   = parseFloat(document.getElementById('metaActual').value) || 0;
+  const tiempo   = document.getElementById('metaTiempo').value.trim();
+  if (!nombre || !objetivo || objetivo <= 0) { alert('Completa nombre y monto objetivo.'); return; }
+  const meta = { id: metaEditId || Date.now().toString(), nombre, objetivo, actual, tiempo };
+  if (metaEditId) {
+    const idx = DB.metas.findIndex(x => x.id === metaEditId);
+    if (idx !== -1) DB.metas[idx] = meta;
+  } else { DB.metas.push(meta); }
+  saveDB();
+  actualizarTodo();
+  cerrarModalMeta();
+}
+
+function eliminarMeta(id) {
+  if (!confirm('¿Eliminar esta meta?')) return;
+  DB.metas = DB.metas.filter(x => x.id !== id);
+  saveDB();
+  actualizarTodo();
+}
+
+// ── RENDER ACTIVOS, PASIVOS, METAS ──────────────
+function renderPatrimonio() {
+  const totalA = DB.activos.reduce((s,x) => s + x.monto, 0);
+  const totalP = DB.pasivos.reduce((s,x) => s + x.monto, 0);
+  const neto   = totalA - totalP;
+  document.getElementById('kpi-total-activos').textContent  = fmt(totalA);
+  document.getElementById('kpi-total-pasivos').textContent  = fmt(totalP);
+  const netoEl = document.getElementById('kpi-patrimonio-neto');
+  netoEl.textContent = (neto >= 0 ? '+' : '') + fmt(neto);
+  netoEl.className   = 'kpi-value ' + (neto >= 0 ? 'positive' : 'negative');
+
+  const tbA = document.getElementById('tbody-activos');
+  tbA.innerHTML = DB.activos.length === 0
+    ? `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">—</div><p>Sin activos registrados.</p></div></td></tr>`
+    : DB.activos.map(x => `<tr><td>${x.nombre}</td><td><span class="tag tag-blue">${x.tipo}</span></td><td class="amount positive">${fmt(x.monto)}</td><td>${x.fecha || '—'}</td><td class="actions-cell"><button class="btn-icon" onclick="abrirModalAP('activo','${x.id}')">Editar</button><button class="btn btn-danger-ghost" onclick="eliminarAP('activo','${x.id}')">Eliminar</button></td></tr>`).join('');
+
+  const tbP = document.getElementById('tbody-pasivos');
+  tbP.innerHTML = DB.pasivos.length === 0
+    ? `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">—</div><p>Sin pasivos registrados.</p></div></td></tr>`
+    : DB.pasivos.map(x => `<tr><td>${x.nombre}</td><td><span class="tag tag-red">${x.tipo}</span></td><td class="amount negative">${fmt(x.monto)}</td><td class="amount">${x.cuota ? fmt(x.cuota) : '—'}</td><td class="actions-cell"><button class="btn-icon" onclick="abrirModalAP('pasivo','${x.id}')">Editar</button><button class="btn btn-danger-ghost" onclick="eliminarAP('pasivo','${x.id}')">Eliminar</button></td></tr>`).join('');
+
+  // Metas
+  const listaM = document.getElementById('lista-metas');
+  listaM.innerHTML = DB.metas.length === 0
+    ? `<div class="empty-state"><div class="empty-icon">—</div><p>Sin metas registradas. Agrega tu primer objetivo financiero.</p></div>`
+    : DB.metas.map(m => {
+        const pct = Math.min(100, Math.round((m.actual / m.objetivo) * 100));
+        const color = pct >= 80 ? '#16a34a' : pct >= 40 ? '#2563eb' : '#d97706';
+        return `<div class="prog-item">
+          <div class="prog-header">
+            <span style="font-weight:600">${m.nombre} <span style="font-weight:400;color:var(--muted);font-size:0.78rem">${m.tiempo ? '· ' + m.tiempo : ''}</span></span>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span class="prog-pct">${pct}%</span>
+              <button class="btn-icon" onclick="abrirModalMeta('${m.id}')">Editar</button>
+              <button class="btn btn-danger-ghost" onclick="eliminarMeta('${m.id}')">Eliminar</button>
+            </div>
+          </div>
+          <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${color}"></div></div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:4px">${fmt(m.actual)} de ${fmt(m.objetivo)}</div>
+        </div>`;
+      }).join('');
+}
+
+// Parchamos actualizarTodo para incluir patrimonio
+const _actualizarTodoOrig = actualizarTodo;
+actualizarTodo = function() { _actualizarTodoOrig(); renderPatrimonio(); };
+
+// ── NAVEGACIÓN ───────────────────────────────────
+function switchView(viewId) {
+  document.querySelectorAll('.fin-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  document.querySelector(`[data-view="${viewId}"]`)?.classList.add('active');
+}
+
+document.querySelectorAll('.nav-item[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => switchView(btn.dataset.view));
+});
+
+// ── INIT ─────────────────────────────────────────
+actualizarTodo();
+</script>
+</body>
+</html>

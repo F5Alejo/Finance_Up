@@ -17,6 +17,7 @@
         <nav class="nav-container">
             <div class="nav-links">
                 <a href="{{ url_for('inicio') }}">Inicio</a>
+                <a href="{{ url_for('finanzas') }}">Tus Finanzas</a>
                 <a href="{{ url_for('educacion') }}">Educación</a>
                 <a href="{{ url_for('alianzas') }}" style="color: #0b946d; font-weight: 700;">Alianzas</a>
                 <a href="{{ url_for('soporte') }}">Soporte</a>
@@ -49,133 +50,529 @@
             
             <aside class="columna-filtros">
                 <div class="caja-filtros">
-                    <h3>≡ Filtrar ofertas</h3>
-                    <input type="text" placeholder="🔍 Bancos, fintechs..." class="input-busqueda">
-                    
+                    <h3>Filtrar ofertas</h3>
+                    <input type="text" id="busquedaInput" placeholder="Banco, producto, tipo..." class="input-busqueda" oninput="aplicarFiltros()">
+
                     <div class="grupo-filtro">
                         <h4>TIPO DE ALIADO</h4>
-                        <div class="pills">
-                            <span class="pill activa">Bancos</span>
-                            <span class="pill">Fintech</span>
-                            <span class="pill">Comercio</span>
+                        <div class="pills" id="pillsTipo">
+                            <span class="pill activa" data-filter-tipo="todos" onclick="togglePillTipo(this)">Todos</span>
+                            <span class="pill" data-filter-tipo="banco" onclick="togglePillTipo(this)">Bancos</span>
+                            <span class="pill" data-filter-tipo="fintech" onclick="togglePillTipo(this)">Fintech</span>
+                            <span class="pill" data-filter-tipo="microfinanciera" onclick="togglePillTipo(this)">Microfinanciera</span>
+                        </div>
+                    </div>
+
+                    <div class="grupo-filtro">
+                        <h4>TIPO DE CR&Eacute;DITO</h4>
+                        <div class="pills" id="pillsCredito">
+                            <span class="pill activa" data-filter-credito="todos" onclick="togglePillCredito(this)">Todos</span>
+                            <span class="pill" data-filter-credito="tarjeta" onclick="togglePillCredito(this)">Tarjeta</span>
+                            <span class="pill" data-filter-credito="consumo" onclick="togglePillCredito(this)">Consumo</span>
+                            <span class="pill" data-filter-credito="hipotecario" onclick="togglePillCredito(this)">Hipotecario</span>
+                            <span class="pill" data-filter-credito="vehiculo" onclick="togglePillCredito(this)">Veh&iacute;culo</span>
+                            <span class="pill" data-filter-credito="libranza" onclick="togglePillCredito(this)">Libranza</span>
+                            <span class="pill" data-filter-credito="microcredito" onclick="togglePillCredito(this)">Microcr&eacute;dito</span>
                         </div>
                     </div>
 
                     <div class="grupo-filtro">
                         <h4>BENEFICIO PRINCIPAL</h4>
-                        <div class="pills">
-                            <span class="pill">0% Interés</span>
-                            <span class="pill">Cashback</span>
-                            <span class="pill">Sin Cuota</span>
+                        <div class="pills" id="pillsBeneficio">
+                            <span class="pill activa" data-filter-beneficio="todos" onclick="togglePillBeneficio(this)">Todos</span>
+                            <span class="pill" data-filter-beneficio="cashback" onclick="togglePillBeneficio(this)">Cashback</span>
+                            <span class="pill" data-filter-beneficio="sin-cuota" onclick="togglePillBeneficio(this)">Sin Cuota</span>
+                            <span class="pill" data-filter-beneficio="tasa-baja" onclick="togglePillBeneficio(this)">Tasa Baja</span>
+                            <span class="pill" data-filter-beneficio="digital" onclick="togglePillBeneficio(this)">100% Digital</span>
                         </div>
                     </div>
 
-                    <div class="grupo-filtro">
-                        <h4>TU PERFIL</h4>
-                        <div class="pills">
-                            <span class="pill">Score Alto</span>
-                            <span class="pill">Historial Nuevo</span>
-                        </div>
-                    </div>
+                    <button class="btn-blanco" style="margin-top:12px;width:100%;background:#f1f5f9;color:#475569;border:none;cursor:pointer;padding:9px;border-radius:10px;font-size:0.82rem;font-weight:600" onclick="limpiarFiltros()">Limpiar filtros</button>
+
+                    <div id="contadorResultados" style="margin-top:12px;font-size:0.78rem;color:#94a3b8;text-align:center"></div>
                 </div>
 
                 <div class="tarjeta-bonos">
-                    <h4>Bonos por buen hábito</h4>
-                    <a href="#" class="btn-blanco">Conoce Cómo</a>
+                    <h4>Bonos por buen h&aacute;bito</h4>
+                    <a href="#" class="btn-blanco">Conoce C&oacute;mo</a>
                 </div>
             </aside>
 
             <main class="columna-ofertas">
-                <h3 class="titulo-seccion">Ofertas recomendadas</h3>
-                
-                <div class="tarjeta-oferta">
-                    <div class="oferta-info">
-                        <h4>Banco Andino</h4>
-                        <p>Hasta 2 puntos menos en tasa si completas los módulos básicos.</p>
-                        <span class="meta-texto">Vence en 7 días · 2.1k usuarios · ID8866</span>
-                        <div class="oferta-botones">
-                            <a href="#" class="btn-aplicar">Aplicar</a>
-                        </div>
+                <h3 class="titulo-seccion" id="tituloResultados">Ofertas por tipo de producto</h3>
+
+                <!-- BANCOLOMBIA -->
+                <div class="banco-grupo" data-tipo="banco" data-banco="bancolombia">
+                    <div class="banco-encabezado">
+                        <div class="banco-nombre-tag">BANCOLOMBIA</div>
+                        <span class="banco-tipo-tag">Banco Nacional</span>
                     </div>
-                    <div class="oferta-logo">
-                        <img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Banco Andino">
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="banco" data-credito="tarjeta" data-beneficio="cashback sin-cuota"
+                         data-asesor="Carlos Mejía" data-tel="573001234567"
+                         data-requisitos="Ingresos demostrables · Score 650+ · Antigüedad laboral 12m">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Tarjeta de Crédito</div>
+                            <h4>Bancolombia Visa Clásica</h4>
+                            <p>Cupo desde $1M. 0% cuota de manejo el primer año, cashback del 2% en compras en línea. Aprobación en 24 horas.</p>
+                            <span class="meta-texto">Hasta 36 cuotas · Tasa desde 1.8% MV · ID-BC01</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Bancolombia"></div>
+                    </div>
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="banco" data-credito="hipotecario" data-beneficio="tasa-baja"
+                         data-asesor="Carlos Mejía" data-tel="573001234567"
+                         data-requisitos="Vivienda propia en garantía · Ingresos $3M+ · Edad 25-65 años">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Crédito Hipotecario</div>
+                            <h4>Bancolombia Hipoteca Fácil</h4>
+                            <p>Financia hasta el 80% del valor del inmueble a 20 años. Tasa fija o variable. Incluye seguro de vida y terremoto.</p>
+                            <span class="meta-texto">Plazo hasta 240 meses · Tasa desde 1.1% MV · ID-BC02</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Bancolombia"></div>
+                    </div>
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="banco" data-credito="libranza" data-beneficio="tasa-baja"
+                         data-asesor="Carlos Mejía" data-tel="573001234567"
+                         data-requisitos="Empleado activo · Autorización de descuento nómina · Ingresos $1.5M+">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Libranza</div>
+                            <h4>Bancolombia Crédito Libranza</h4>
+                            <p>Descuento directo de nómina. Hasta $50M con la mejor tasa del mercado para empleados de entidades aliadas.</p>
+                            <span class="meta-texto">Hasta 84 meses · Tasa desde 0.99% MV · ID-BC03</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Bancolombia"></div>
                     </div>
                 </div>
 
-                <div class="tarjeta-oferta">
-                    <div class="oferta-info">
-                        <h4>Fintech Luz</h4>
-                        <p>5% de cashback en compras esenciales y 0% cuota de manejo por 6 meses.</p>
-                        <span class="meta-texto">Recomendado · Válido este mes · ID 2288</span>
-                        <div class="oferta-botones">
-                            <a href="#" class="btn-aplicar">Solicitar</a>
-                            <a href="#" class="btn-guardar">Guardar</a>
-                        </div>
+                <!-- DAVIVIENDA -->
+                <div class="banco-grupo" data-tipo="banco" data-banco="davivienda">
+                    <div class="banco-encabezado">
+                        <div class="banco-nombre-tag">DAVIVIENDA</div>
+                        <span class="banco-tipo-tag">Banco Nacional</span>
                     </div>
-                    <div class="oferta-logo bg-negro">
-                        <img src="{{ url_for('static', filename='img/banco_fintech.png') }}" alt="Banco Fintech">
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="banco" data-credito="consumo" data-beneficio="digital tasa-baja"
+                         data-asesor="Luisa Fernández" data-tel="573159876543"
+                         data-requisitos="Score 600+ · Ingresos $2M+ · Sin mora en centrales de riesgo">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Crédito de Consumo</div>
+                            <h4>Davivienda Libre Inversión</h4>
+                            <p>Crédito sin garantía para lo que necesites. Hasta $30M desembolsados en 48 horas. Sin codeudor para montos menores a $10M.</p>
+                            <span class="meta-texto">Hasta 60 meses · Tasa desde 1.5% MV · ID-DV01</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_vivacomercial.png') }}" alt="Davivienda"></div>
+                    </div>
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="banco" data-credito="vehiculo" data-beneficio="digital"
+                         data-asesor="Luisa Fernández" data-tel="573159876543"
+                         data-requisitos="Factura de vehículo · Inicial 30% · Ingresos demostrables">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Crédito Vehículo</div>
+                            <h4>Davivienda Tu Carro Ya</h4>
+                            <p>Financia tu carro nuevo o usado en minutos desde la app. Cubre hasta el 70% del valor. Trámite 100% digital.</p>
+                            <span class="meta-texto">Hasta 72 meses · Tasa desde 1.3% MV · ID-DV02</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_vivacomercial.png') }}" alt="Davivienda"></div>
                     </div>
                 </div>
 
-                <div class="tarjeta-oferta">
-                    <div class="oferta-info">
-                        <h4>MicroCrédito Ya</h4>
-                        <p>Préstamos pequeños para construir historial crediticio desde cero.</p>
-                        <span class="meta-texto">ID 6795</span>
-                        <div class="oferta-botones">
-                            <a href="#" class="btn-aplicar">Solicitar</a>
-                        </div>
+                <!-- FINTECH LUZ -->
+                <div class="banco-grupo" data-tipo="fintech" data-banco="fintech luz">
+                    <div class="banco-encabezado">
+                        <div class="banco-nombre-tag">FINTECH LUZ</div>
+                        <span class="banco-tipo-tag">Fintech</span>
                     </div>
-                    <div class="oferta-logo">
-                        <div style="background: #1e293b; color: white; padding: 10px; border-radius: 5px; text-align: center;">MICRO CRÉDITO</div>
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="fintech" data-credito="tarjeta" data-beneficio="cashback sin-cuota digital"
+                         data-asesor="Andrés Torres" data-tel="573204445566"
+                         data-requisitos="Mayor de 18 años · Celular con internet · Sin historial requerido">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Tarjeta de Crédito</div>
+                            <h4>Fintech Luz Mastercard Sin Cuota</h4>
+                            <p>5% de cashback en compras esenciales y 0% cuota de manejo por 6 meses. Aprobación inmediata 100% en línea.</p>
+                            <span class="meta-texto">Recomendado · Sin cuota de manejo · ID-FL01</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo bg-negro"><img src="{{ url_for('static', filename='img/banco_fintech.png') }}" alt="Fintech Luz"></div>
+                    </div>
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="fintech" data-credito="consumo" data-beneficio="digital"
+                         data-asesor="Andrés Torres" data-tel="573204445566"
+                         data-requisitos="Ingresos $800K+ · Documento de identidad vigente · Sin deudas vencidas">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Crédito de Consumo</div>
+                            <h4>Fintech Luz Préstamo Express</h4>
+                            <p>Hasta $5M en tu cuenta en menos de 10 minutos. Sin papeleo, sin filas. Ideal para emergencias o gastos personales.</p>
+                            <span class="meta-texto">Hasta 24 meses · Tasa desde 2.1% MV · ID-FL02</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo bg-negro"><img src="{{ url_for('static', filename='img/banco_fintech.png') }}" alt="Fintech Luz"></div>
                     </div>
                 </div>
+
+                <!-- MICROCREDITO YA -->
+                <div class="banco-grupo" data-tipo="microfinanciera" data-banco="microcredito ya">
+                    <div class="banco-encabezado">
+                        <div class="banco-nombre-tag">MICROCRÉDITO YA</div>
+                        <span class="banco-tipo-tag">Microfinanciera</span>
+                    </div>
+                    <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
+                         data-tipo="microfinanciera" data-credito="microcredito" data-beneficio="digital"
+                         data-asesor="Patricia Gómez" data-tel="573167778899"
+                         data-requisitos="Mayor de edad · Negocio propio o idea de emprendimiento · Sin restricciones de score">
+                        <div class="oferta-info">
+                            <div class="producto-tag">Microcrédito Emprendimiento</div>
+                            <h4>MicroCrédito Ya - Arranca tu Negocio</h4>
+                            <p>Préstamos pequeños desde $200K para construir historial crediticio desde cero. Acompañamiento de asesor financiero incluido.</p>
+                            <span class="meta-texto">Hasta $5M · Hasta 18 meses · ID-MC01</span>
+                            <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
+                        </div>
+                        <div class="oferta-logo">
+                            <div style="background:#1e293b;color:white;padding:10px;border-radius:5px;text-align:center;font-size:0.75rem;font-weight:700">MICRO<br>CRÉDITO</div>
+                        </div>
+                    </div>
+                </div>
+
             </main>
 
             <aside class="columna-simulador">
                 <div class="tarjeta-simulador">
-                    <h3>📊 Simulador Pro</h3>
-                    
+                    <h3>Simulador de Crédito</h3>
+
                     <div class="simulador-monto">
                         <p>¿Cuánto necesitas?</p>
-                        <h2>$15.000.000</h2>
+                        <h2 id="sim-monto-display">$15.000.000</h2>
                     </div>
-                    
+
                     <div class="simulador-rango">
-                        <span class="rango-min">1M</span>
-                        <input type="range" min="1" max="100" value="15" class="slider">
-                        <span class="rango-max">100M</span>
+                        <span class="rango-min">$1M</span>
+                        <input type="range" id="sim-slider" min="1000000" max="100000000"
+                               step="500000" value="15000000" class="slider"
+                               oninput="simActualizar()">
+                        <span class="rango-max">$100M</span>
+                    </div>
+
+                    <div class="sim-input-directo">
+                        <label>O ingresa el monto exacto:</label>
+                        <input type="number" id="sim-input-monto" value="15000000"
+                               min="1000000" max="100000000" step="500000"
+                               class="sim-campo" oninput="simDesdeInput()">
                     </div>
 
                     <div class="simulador-plazo">
-                        <p>Plazo (meses)</p>
-                        <h3>24</h3>
-                        <div class="pills-plazo">
-                            <span class="pill">12</span>
-                            <span class="pill activa">24</span>
-                            <span class="pill">36</span>
-                            <span class="pill">48</span>
+                        <p>Plazo <span id="sim-plazo-label">24 meses</span></p>
+                        <div class="pills-plazo" id="pillsPlazo">
+                            <span class="pill" data-meses="12"  onclick="simPlazo(this)">12</span>
+                            <span class="pill activa" data-meses="24" onclick="simPlazo(this)">24</span>
+                            <span class="pill" data-meses="36"  onclick="simPlazo(this)">36</span>
+                            <span class="pill" data-meses="48"  onclick="simPlazo(this)">48</span>
+                            <span class="pill" data-meses="60"  onclick="simPlazo(this)">60</span>
+                            <span class="pill" data-meses="72"  onclick="simPlazo(this)">72</span>
+                        </div>
+                    </div>
+
+                    <div class="sim-tasa-wrap">
+                        <label>Tasa mensual estimada: <strong id="sim-tasa-label">1.5%</strong></label>
+                        <input type="range" id="sim-tasa-slider" min="0.5" max="4.0"
+                               step="0.1" value="1.5" class="slider sim-tasa-slider"
+                               oninput="simActualizarTasa()">
+                        <div class="sim-tasa-range-labels">
+                            <span>0.5% (baja)</span><span>4.0% (alta)</span>
                         </div>
                     </div>
 
                     <div class="simulador-resultado">
-                        <p>Pago mensual estimado</p>
-                        <h2>$745,500</h2>
+                        <p>Cuota mensual estimada</p>
+                        <h2 id="sim-cuota">$0</h2>
                     </div>
 
-                    <div class="caja-ahorro">
-                        <span style="font-size: 1.2rem;">↓</span>
-                        <div>
-                            <strong>AHORRO POTENCIAL</strong><br>
-                            -$240,000 en intereses
+                    <div class="sim-resumen">
+                        <div class="sim-resumen-fila">
+                            <span>Total a pagar</span>
+                            <strong id="sim-total">$0</strong>
+                        </div>
+                        <div class="sim-resumen-fila">
+                            <span>Total intereses</span>
+                            <strong id="sim-intereses" style="color:#dc2626">$0</strong>
                         </div>
                     </div>
 
-                    <a href="#" class="btn-solicitar-credito">Solicitar este crédito</a>
+                    <a href="#" class="btn-solicitar-credito" onclick="simSolicitar(); return false;">
+                        Solicitar este crédito
+                    </a>
                 </div>
             </aside>
 
         </div>
     </main>
+
+    <!-- Modal de Detalle de Alianza -->
+    <div id="alianzaModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-logo-container" id="modalLogo">
+                    <!-- Logo dinámico -->
+                </div>
+                <h2 id="modalTitle">Nombre Alianza</h2>
+                <span class="modal-meta" id="modalMeta">Información extra</span>
+            </div>
+            <div class="modal-body">
+                <h3>Beneficios y Detalles</h3>
+                <p id="modalDesc">Descripción completa de la alianza.</p>
+                <div class="modal-requisitos">
+                    <h4>Requisitos:</h4>
+                    <p id="modalRequisitos" style="font-size:0.85rem;color:#475569;margin:0">—</p>
+                </div>
+                <div class="modal-asesor">
+                    <h4>Tu asesor asignado</h4>
+                    <p id="modalAsesor" style="font-size:0.95rem;font-weight:700;color:#0f172a;margin:0">—</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="modalWhatsapp" class="btn-whatsapp" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 1.829 6.362L.266 24l5.882-1.542A11.956 11.956 0 0 0 11.944 24c6.627 0 12-5.373 12-12s-5.373-12-12-12zm.002 20.155a9.882 9.882 0 0 1-5.041-1.378l-.36-.214-3.744.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c0-5.445 4.432-9.878 9.892-9.878 5.445 0 9.88 4.433 9.88 9.878 0 5.444-4.435 9.878-9.88 9.878zm5.421-7.409c-.297-.149-1.758-.867-2.03-.967-.27-.099-.467-.149-.665.149-.198.297-.768.967-.942 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.372-.025-.52-.075-.149-.665-1.609-.91-2.203-.24-.582-.483-.504-.665-.513-.173-.009-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.015-1.04 2.476 0 1.46 1.065 2.871 1.213 3.07.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.575-.086 1.758-.718 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                    Contactar por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir el modal
+        function abrirModal(elemento) {
+            const modal = document.getElementById('alianzaModal');
+            
+            // Extraer info de la tarjeta clickeada
+            const titulo = elemento.querySelector('h4').innerText;
+            const desc = elemento.querySelector('p').innerText;
+            const meta = elemento.querySelector('.meta-texto').innerText;
+            const logoHTML = elemento.querySelector('.oferta-logo').innerHTML;
+            
+            document.getElementById('modalTitle').innerText = titulo;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalMeta').innerText = meta;
+            document.getElementById('modalLogo').innerHTML = logoHTML;
+
+            // Asesor
+            const asesor   = elemento.getAttribute('data-asesor') || 'Asesor Finance Up';
+            const tel      = elemento.getAttribute('data-tel')    || '573105504841';
+            const reqText  = elemento.getAttribute('data-requisitos') || 'Ingresos comprobables · Mayor de edad · Sin mora';
+            document.getElementById('modalAsesor').textContent    = asesor;
+            document.getElementById('modalRequisitos').textContent = reqText;
+            
+            // Configurar WhatsApp link
+            const mensaje = encodeURIComponent('Hola ' + asesor + ', vengo de Finance Up. Me interesa el producto "' + titulo + '" y me gustaría recibir más información.');
+            document.getElementById('modalWhatsapp').href = `https://wa.me/${tel}?text=${mensaje}`;
+            
+            // Mostrar modal con animación
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('mostrar');
+            }, 10);
+            
+            // Evitar scroll de la página de fondo
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            const modal = document.getElementById('alianzaModal');
+            modal.classList.remove('mostrar');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300); // Mismo tiempo que la transición en CSS
+            
+            // Restaurar scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal al hacer clic afuera del contenido
+        document.getElementById('alianzaModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModal();
+            }
+        });
+
+        // ── ESTADO DE FILTROS ──────────────────────────────
+        let filtroTipo      = 'todos';
+        let filtroCredito   = 'todos';
+        let filtroBeneficio = 'todos';
+
+        // ── PILLS TOGGLE ────────────────────────────────────
+        function togglePillTipo(el) {
+            document.querySelectorAll('#pillsTipo .pill').forEach(p => p.classList.remove('activa'));
+            el.classList.add('activa');
+            filtroTipo = el.getAttribute('data-filter-tipo');
+            aplicarFiltros();
+        }
+
+        function togglePillCredito(el) {
+            document.querySelectorAll('#pillsCredito .pill').forEach(p => p.classList.remove('activa'));
+            el.classList.add('activa');
+            filtroCredito = el.getAttribute('data-filter-credito');
+            aplicarFiltros();
+        }
+
+        function togglePillBeneficio(el) {
+            document.querySelectorAll('#pillsBeneficio .pill').forEach(p => p.classList.remove('activa'));
+            el.classList.add('activa');
+            filtroBeneficio = el.getAttribute('data-filter-beneficio');
+            aplicarFiltros();
+        }
+
+        // ── LÓGICA CENTRAL DE FILTRADO ──────────────────────
+        function aplicarFiltros() {
+            const busqueda = (document.getElementById('busquedaInput').value || '').toLowerCase().trim();
+            const grupos   = document.querySelectorAll('.banco-grupo');
+            let totalVisible = 0;
+
+            grupos.forEach(grupo => {
+                const tipoGrupo  = grupo.getAttribute('data-tipo') || '';
+                const bancoNombre = grupo.getAttribute('data-banco') || '';
+
+                // Filtrar por tipo de aliado a nivel de grupo
+                const pasaTipo = filtroTipo === 'todos' || tipoGrupo === filtroTipo;
+
+                // Filtrar tarjetas dentro del grupo
+                const tarjetas = grupo.querySelectorAll('.tarjeta-oferta');
+                let visiblesEnGrupo = 0;
+
+                tarjetas.forEach(card => {
+                    const creditoCard   = card.getAttribute('data-credito')   || '';
+                    const beneficioCard = card.getAttribute('data-beneficio') || '';
+                    const tituloCard    = card.querySelector('h4')?.textContent.toLowerCase() || '';
+                    const descCard      = card.querySelector('p')?.textContent.toLowerCase()  || '';
+
+                    const pasaCredito   = filtroCredito === 'todos'   || creditoCard.includes(filtroCredito);
+                    const pasaBeneficio = filtroBeneficio === 'todos' || beneficioCard.includes(filtroBeneficio);
+                    const pasaBusqueda  = !busqueda
+                        || bancoNombre.includes(busqueda)
+                        || tituloCard.includes(busqueda)
+                        || descCard.includes(busqueda)
+                        || creditoCard.includes(busqueda)
+                        || tipoGrupo.includes(busqueda);
+
+                    const visible = pasaTipo && pasaCredito && pasaBeneficio && pasaBusqueda;
+                    card.style.display = visible ? '' : 'none';
+                    if (visible) visiblesEnGrupo++;
+                });
+
+                // Mostrar u ocultar grupo completo
+                grupo.style.display = (pasaTipo && visiblesEnGrupo > 0) ? '' : 'none';
+                totalVisible += visiblesEnGrupo;
+            });
+
+            // Actualizar contador y título
+            const contador = document.getElementById('contadorResultados');
+            const titulo   = document.getElementById('tituloResultados');
+            if (totalVisible === 0) {
+                contador.textContent = 'Sin resultados para esta búsqueda';
+                titulo.textContent   = 'Sin resultados';
+            } else {
+                contador.textContent = totalVisible + ' producto' + (totalVisible !== 1 ? 's' : '') + ' encontrado' + (totalVisible !== 1 ? 's' : '');
+                titulo.textContent   = 'Ofertas por tipo de producto';
+            }
+        }
+
+        // ── LIMPIAR FILTROS ─────────────────────────────────
+        function limpiarFiltros() {
+            filtroTipo = filtroCredito = filtroBeneficio = 'todos';
+            document.getElementById('busquedaInput').value = '';
+            document.querySelectorAll('#pillsTipo .pill').forEach(p => p.classList.remove('activa'));
+            document.querySelectorAll('#pillsCredito .pill').forEach(p => p.classList.remove('activa'));
+            document.querySelectorAll('#pillsBeneficio .pill').forEach(p => p.classList.remove('activa'));
+            document.querySelector('#pillsTipo [data-filter-tipo="todos"]').classList.add('activa');
+            document.querySelector('#pillsCredito [data-filter-credito="todos"]').classList.add('activa');
+            document.querySelector('#pillsBeneficio [data-filter-beneficio="todos"]').classList.add('activa');
+            aplicarFiltros();
+        }
+
+        // ── SIMULADOR DE CRÉDITO ─────────────────────────────
+        let simMonto = 15000000;
+        let simPlazoMeses = 24;
+        let simTasaMensual = 1.5;
+
+        function fmtPesos(n) {
+            return '$' + Math.round(n).toLocaleString('es-CO');
+        }
+
+        function calcularCuota(monto, tasaMV, meses) {
+            // Fórmula de amortización francesa (cuota fija)
+            const r = tasaMV / 100;
+            if (r === 0) return monto / meses;
+            return monto * (r * Math.pow(1 + r, meses)) / (Math.pow(1 + r, meses) - 1);
+        }
+
+        function simRecalcular() {
+            const cuota    = calcularCuota(simMonto, simTasaMensual, simPlazoMeses);
+            const total    = cuota * simPlazoMeses;
+            const intereses = total - simMonto;
+
+            // Display monto
+            document.getElementById('sim-monto-display').textContent =
+                '$' + simMonto.toLocaleString('es-CO');
+
+            // Sync slider ↔ input
+            document.getElementById('sim-slider').value      = simMonto;
+            document.getElementById('sim-input-monto').value = simMonto;
+
+            // Results
+            document.getElementById('sim-cuota').textContent     = fmtPesos(cuota);
+            document.getElementById('sim-total').textContent      = fmtPesos(total);
+            document.getElementById('sim-intereses').textContent  = fmtPesos(intereses);
+        }
+
+        function simActualizar() {
+            simMonto = parseInt(document.getElementById('sim-slider').value);
+            document.getElementById('sim-input-monto').value = simMonto;
+            simRecalcular();
+        }
+
+        function simDesdeInput() {
+            let val = parseInt(document.getElementById('sim-input-monto').value) || 1000000;
+            val = Math.min(100000000, Math.max(1000000, val));
+            simMonto = val;
+            document.getElementById('sim-slider').value = val;
+            simRecalcular();
+        }
+
+        function simPlazo(el) {
+            document.querySelectorAll('#pillsPlazo .pill').forEach(p => p.classList.remove('activa'));
+            el.classList.add('activa');
+            simPlazoMeses = parseInt(el.getAttribute('data-meses'));
+            document.getElementById('sim-plazo-label').textContent = simPlazoMeses + ' meses';
+            simRecalcular();
+        }
+
+        function simActualizarTasa() {
+            simTasaMensual = parseFloat(document.getElementById('sim-tasa-slider').value);
+            document.getElementById('sim-tasa-label').textContent = simTasaMensual.toFixed(1) + '%';
+            simRecalcular();
+        }
+
+        function simSolicitar() {
+            const cuota = Math.round(calcularCuota(simMonto, simTasaMensual, simPlazoMeses));
+            const msg   = encodeURIComponent(
+                'Hola, vengo de Finance Up. Me interesa solicitar un crédito por ' +
+                '$' + simMonto.toLocaleString('es-CO') +
+                ' a ' + simPlazoMeses + ' meses con una cuota estimada de ' +
+                '$' + cuota.toLocaleString('es-CO') + '. ¿Pueden asesorarme?'
+            );
+            window.open('https://wa.me/573105504841?text=' + msg, '_blank');
+        }
+
+        // Inicializar simulador al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            simRecalcular();
+            aplicarFiltros();
+        });
+    </script>
 </body>
 </html>

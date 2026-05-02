@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Finance Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='perfil.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('inicio') }}" class="logo-finance">Finance <span class="logo-green">Up</span></a>
+        </div>
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="{{ url_for('inicio') }}">Inicio</a>
+                <a href="{{ url_for('finanzas') }}">Tus Finanzas</a>
+                <a href="{{ url_for('educacion') }}">Educación</a>
+                <a href="{{ url_for('alianzas') }}">Alianzas</a>
+                <a href="{{ url_for('soporte') }}">Soporte</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="{{ url_for('perfil') }}" style="color:#0b946d;font-weight:700">{{ session.usuario_nombre }}</a>
+                <a href="{{ url_for('logout') }}" class="btn-registrarte" style="background:#dc2626">Cerrar sesión</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="perfil-page">
+
+        <!-- HERO -->
+        <div class="perfil-hero">
+            <div class="avatar-grande">{{ user.nombre[0] | upper }}{{ user.apellido[0] | upper }}</div>
+            <div class="perfil-hero-info">
+                <h1>{{ user.nombre }} {{ user.apellido }}</h1>
+                <p class="perfil-email">{{ user.email }}</p>
+                <span class="perfil-badge">Miembro desde {{ user.creado_en }}</span>
+            </div>
+        </div>
+
+        <!-- ALERTAS -->
+        {% if request.args.get('pwd_ok') %}
+        <div class="alerta alerta-ok">Contraseña actualizada correctamente.</div>
+        {% endif %}
+        {% if request.args.get('pwd_error') == '1' %}
+        <div class="alerta alerta-err">La contraseña actual es incorrecta.</div>
+        {% elif request.args.get('pwd_error') == '2' %}
+        <div class="alerta alerta-err">La nueva contraseña debe tener al menos 8 caracteres.</div>
+        {% elif request.args.get('pwd_error') == '3' %}
+        <div class="alerta alerta-err">Las contraseñas nuevas no coinciden.</div>
+        {% endif %}
+
+        <div class="perfil-grid">
+
+            <!-- Datos personales -->
+            <div class="perfil-card">
+                <div class="card-titulo">Datos personales</div>
+                <form action="{{ url_for('editar_perfil') }}" method="POST" class="perfil-form">
+                    <div class="form-fila">
+                        <div class="form-campo">
+                            <label>Nombre</label>
+                            <input type="text" name="nombre" value="{{ user.nombre }}" required>
+                        </div>
+                        <div class="form-campo">
+                            <label>Apellido</label>
+                            <input type="text" name="apellido" value="{{ user.apellido }}" required>
+                        </div>
+                    </div>
+                    <div class="form-campo">
+                        <label>Correo electrónico</label>
+                        <input type="email" value="{{ user.email }}" disabled>
+                        <small>El correo no se puede cambiar.</small>
+                    </div>
+                    <div class="form-campo">
+                        <label>Miembro desde</label>
+                        <input type="text" value="{{ user.creado_en }}" disabled>
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar cambios</button>
+                </form>
+            </div>
+
+            <!-- Cambiar contraseña -->
+            <div class="perfil-card">
+                <div class="card-titulo">Cambiar contraseña</div>
+                <form action="{{ url_for('cambiar_password') }}" method="POST" class="perfil-form">
+                    <div class="form-campo">
+                        <label>Contraseña actual</label>
+                        <input type="password" name="actual" placeholder="Tu contraseña actual" required>
+                    </div>
+                    <div class="form-campo">
+                        <label>Nueva contraseña</label>
+                        <input type="password" name="nueva" placeholder="Mínimo 8 caracteres" required minlength="8">
+                    </div>
+                    <div class="form-campo">
+                        <label>Confirmar nueva contraseña</label>
+                        <input type="password" name="confirma" placeholder="Repite la nueva contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-guardar">Actualizar contraseña</button>
+                </form>
+            </div>
+
+            <!-- Accesos rápidos -->
+            <div class="perfil-card perfil-accesos">
+                <div class="card-titulo">Accesos rápidos</div>
+                <div class="accesos-grid">
+                    <a href="{{ url_for('finanzas') }}" class="acceso-item">
+                        <div class="acceso-icon">$</div>
+                        <span>Mis Finanzas</span>
+                    </a>
+                    <a href="{{ url_for('educacion') }}" class="acceso-item">
+                        <div class="acceso-icon">📚</div>
+                        <span>Cursos</span>
+                    </a>
+                    <a href="{{ url_for('alianzas') }}" class="acceso-item">
+                        <div class="acceso-icon">🤝</div>
+                        <span>Alianzas</span>
+                    </a>
+                    <a href="{{ url_for('soporte') }}" class="acceso-item">
+                        <div class="acceso-icon">💬</div>
+                        <span>Soporte</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Zona de peligro -->
+            <div class="perfil-card zona-peligro">
+                <div class="card-titulo">Sesión</div>
+                <p>Al cerrar sesión deberás ingresar nuevamente con tu correo y contraseña.</p>
+                <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar sesión</a>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
