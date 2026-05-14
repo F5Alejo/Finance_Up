@@ -40,7 +40,11 @@
             <h1>Gestiona tus <span class="highlight">Finanzas</span> <br> con Inteligencia</h1>
             <p>Plataforma integral para el control financiero personal y empresarial. Toma decisiones inteligentes con datos en tiempo real.</p>
             <div class="hero-action">
-                <button class="btn-main">Comenzar Ahora</button>
+                {% if session.usuario_id %}
+                    <a href="{{ url_for('finanzas') }}" class="btn-main">Ir a Finanzas</a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn-main">Comenzar Ahora</a>
+                {% endif %}
             </div>
         </div>
     </main>

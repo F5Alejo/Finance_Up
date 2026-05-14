@@ -24,8 +24,13 @@
                 <a href="{{ url_for('soporte') }}" style="color: #0b946d; font-weight: 700;">Soporte</a>
             </div>
             <div class="auth-buttons">
-                <a href="{{ url_for('login') }}" class="login-link">Iniciar sesión</a>
-                <a href="{{ url_for('register') }}" class="btn-registrarte">Registrarte</a>
+                {% if session.usuario_id %}
+                    <a href="{{ url_for('perfil') }}" class="login-link" style="color:#0b946d;font-weight:700">{{ session.usuario_nombre }}</a>
+                    <a href="{{ url_for('logout') }}" class="btn-registrarte" style="background:#dc2626">Cerrar sesión</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="login-link">Iniciar sesión</a>
+                    <a href="{{ url_for('register') }}" class="btn-registrarte">Registrarte</a>
+                {% endif %}
             </div>
         </nav>
     </header>
