@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Driver.js for Guided Tour -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
 </head>
 <body>
 
@@ -17,18 +20,18 @@
         </div>
         <nav class="nav-container">
             <div class="nav-links">
-                <a href="{{ url_for('inicio') }}">Inicio</a>
-                <a href="{{ url_for('finanzas') }}">Tus Finanzas</a>
-                <a href="{{ url_for('educacion') }}">Educación</a>
-                <a href="{{ url_for('alianzas') }}">Alianzas</a>
-                <a href="{{ url_for('soporte') }}">Soporte</a>
+                <a href="{{ url_for('inicio') }}" id="tour-inicio">Inicio</a>
+                <a href="{{ url_for('finanzas') }}" id="tour-finanzas">Tus Finanzas</a>
+                <a href="{{ url_for('educacion') }}" id="tour-educacion">Educación</a>
+                <a href="{{ url_for('alianzas') }}" id="tour-alianzas">Alianzas</a>
+                <a href="{{ url_for('soporte') }}" id="tour-soporte">Soporte</a>
             </div>
             <div class="auth-buttons">
                 {% if session.usuario_id %}
-                    <a href="{{ url_for('perfil') }}" class="login-link" style="color:#0b946d;font-weight:700">{{ session.usuario_nombre }}</a>
+                    <a href="{{ url_for('perfil') }}" class="login-link" id="tour-login" style="color:#0b946d;font-weight:700">{{ session.usuario_nombre }}</a>
                     <a href="{{ url_for('logout') }}" class="btn-registrarte" style="background:#dc2626">Cerrar sesión</a>
                 {% else %}
-                    <a href="{{ url_for('login') }}" class="login-link">Iniciar sesión</a>
+                    <a href="{{ url_for('login') }}" class="login-link" id="tour-login">Iniciar sesión</a>
                     <a href="{{ url_for('register') }}" class="btn-registrarte">Registrarte</a>
                 {% endif %}
             </div>
@@ -174,7 +177,7 @@
                     </div>
                 </div>
 
-                <button class="btn-main">Explorar Cursos</button>
+                <a href="{{ url_for('educacion') }}" class="btn-main" style="text-decoration: none; display: inline-block; text-align: center;">Explorar Cursos</a>
             </div>
 
             <div class="education-image">
@@ -234,5 +237,198 @@
             <p>&copy; 2026 FinanceUp. Todos los derechos reservados.</p>
         </div>
     </footer>
+    <!-- ONBOARDING TOUR MODAL & SCRIPT -->
+    <style>
+        /* Onboarding Modal Styles */
+        .tour-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .tour-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .tour-modal {
+            background: #fff;
+            padding: 32px;
+            border-radius: 16px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .tour-modal-overlay.active .tour-modal {
+            transform: translateY(0);
+        }
+
+        /* FAB Tour Button Styles */
+        .fab-tour {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 56px;
+            height: 56px;
+            background-color: #0b946d; /* Verde institucional */
+            color: white;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(11, 148, 109, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            z-index: 9999;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .fab-tour:hover {
+            transform: scale(1.1) rotate(5deg);
+            background-color: #0a7a5a;
+            box-shadow: 0 6px 16px rgba(11, 148, 109, 0.4);
+        }
+
+        .fab-tour:active {
+            transform: scale(0.95);
+        }
+
+        .tour-modal h3 {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+        .tour-modal p {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .tour-modal-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .btn-tour-yes {
+            background: #1eb953;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-tour-yes:hover { background: #0f6e30; }
+        .btn-tour-no {
+            background: transparent;
+            color: #64748b;
+            border: 1.5px solid #cbd5e1;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-tour-no:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+    </style>
+
+    <div class="tour-modal-overlay" id="tourWelcomeModal">
+        <div class="tour-modal">
+            <h3>¿Es tu primera vez aquí? 👋</h3>
+            <p>Nos encantaría darte un recorrido rápido de 1 minuto sobre cómo encontrar los mejores créditos e interactuar con la plataforma.</p>
+            <div class="tour-modal-btns">
+                <button class="btn-tour-no" id="btnTourSkip">No, soy un experto</button>
+                <button class="btn-tour-yes" id="btnTourStart">Sí, dar recorrido</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="btnTourFAB" class="fab-tour" aria-label="Activar recorrido guiado" title="¿Necesitas ayuda?">
+        <span>?</span>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tourKey = 'financeUpTourCompleted';
+            const modal = document.getElementById('tourWelcomeModal');
+            const btnSkip = document.getElementById('btnTourSkip');
+            const btnStart = document.getElementById('btnTourStart');
+            const btnFAB = document.getElementById('btnTourFAB');
+
+            // --- FUNCIÓN PARA INICIAR EL TOUR ---
+            const startTour = () => {
+                const driverObj = window.driver.js.driver({
+                    showProgress: true,
+                    animate: true,
+                    allowClose: true,
+                    overlayColor: 'rgba(0, 0, 0, 0.75)',
+                    doneBtnText: '¡Entendido!',
+                    closeBtnText: 'Salir',
+                    nextBtnText: 'Siguiente &rarr;',
+                    prevBtnText: '&larr; Anterior',
+                    onPopoverRender: (popover, { config, state }) => {
+                        popover.wrapper.style.borderRadius = '12px';
+                        popover.title.style.color = '#1e293b';
+                        popover.title.style.fontWeight = 'bold';
+                        popover.description.style.color = '#475569';
+                    },
+                    onDestroyStarted: () => {
+                        if (!driverObj.hasNextStep() || confirm("¿Estás seguro de que quieres salir del recorrido?")) {
+                            driverObj.destroy();
+                            localStorage.setItem(tourKey, 'true');
+                            modal.classList.remove('active');
+                        }
+                    },
+                    steps: [
+                        { element: '#tour-inicio', popover: { title: 'Inicio', description: 'Haz clic aquí para regresar al dashboard principal y ver tu resumen general.', side: 'bottom', align: 'start' }},
+                        { element: '#tour-finanzas', popover: { title: 'Tus Finanzas', description: 'Rastrea tus préstamos, historial crediticio y salud financiera aquí.', side: 'bottom', align: 'start' }},
+                        { element: '#tour-educacion', popover: { title: 'Educación', description: 'Guías y consejos para tomar decisiones financieras más inteligentes.', side: 'bottom', align: 'start' }},
+                        { element: '#tour-alianzas', popover: { title: 'Alianzas', description: 'Beneficios exclusivos y tasas especiales con bancos aliados.', side: 'bottom', align: 'start' }},
+                        { element: '#tour-soporte', popover: { title: 'Soporte', description: 'Ayuda vía chat o correo disponible 24/7.', side: 'bottom', align: 'start' }},
+                        { element: '#tour-login', popover: { title: 'Acceso Seguro', description: 'Gestiona tus solicitudes de forma segura desde tu cuenta.', side: 'bottom', align: 'start' }}
+                    ]
+                });
+                driverObj.drive();
+            };
+
+            // Check if user has seen the tour
+            if (!localStorage.getItem(tourKey)) {
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 800);
+            }
+
+            const finishTour = () => {
+                localStorage.setItem(tourKey, 'true');
+                modal.classList.remove('active');
+            };
+
+            btnSkip.addEventListener('click', finishTour);
+            btnStart.addEventListener('click', () => {
+                modal.classList.remove('active');
+                startTour();
+            });
+
+            // Trigger manual desde el FAB
+            btnFAB.addEventListener('click', () => {
+                startTour();
+            });
+        });
+    </script>
 </body>
 </html>

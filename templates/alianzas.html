@@ -60,35 +60,28 @@
 
                     <div class="grupo-filtro">
                         <h4>TIPO DE ALIADO</h4>
-                        <div class="pills" id="pillsTipo">
-                            <span class="pill activa" data-filter-tipo="todos" onclick="togglePillTipo(this)">Todos</span>
-                            <span class="pill" data-filter-tipo="banco" onclick="togglePillTipo(this)">Bancos</span>
-                            <span class="pill" data-filter-tipo="fintech" onclick="togglePillTipo(this)">Fintech</span>
-                            <span class="pill" data-filter-tipo="microfinanciera" onclick="togglePillTipo(this)">Microfinanciera</span>
+                        <div class="dropdown-wrapper">
+                            <select id="selectTipo" class="input-busqueda" onchange="actualizarSelectTipo(this)">
+                                <option value="todos">🟢 Todos</option>
+                                <option value="banco">Bancos</option>
+                                <option value="fintech">Fintech</option>
+                                <option value="microfinanciera">Microfinanciera</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="grupo-filtro">
                         <h4>TIPO DE CR&Eacute;DITO</h4>
-                        <div class="pills" id="pillsCredito">
-                            <span class="pill activa" data-filter-credito="todos" onclick="togglePillCredito(this)">Todos</span>
-                            <span class="pill" data-filter-credito="tarjeta" onclick="togglePillCredito(this)">Tarjeta</span>
-                            <span class="pill" data-filter-credito="consumo" onclick="togglePillCredito(this)">Consumo</span>
-                            <span class="pill" data-filter-credito="hipotecario" onclick="togglePillCredito(this)">Hipotecario</span>
-                            <span class="pill" data-filter-credito="vehiculo" onclick="togglePillCredito(this)">Veh&iacute;culo</span>
-                            <span class="pill" data-filter-credito="libranza" onclick="togglePillCredito(this)">Libranza</span>
-                            <span class="pill" data-filter-credito="microcredito" onclick="togglePillCredito(this)">Microcr&eacute;dito</span>
-                        </div>
-                    </div>
-
-                    <div class="grupo-filtro">
-                        <h4>BENEFICIO PRINCIPAL</h4>
-                        <div class="pills" id="pillsBeneficio">
-                            <span class="pill activa" data-filter-beneficio="todos" onclick="togglePillBeneficio(this)">Todos</span>
-                            <span class="pill" data-filter-beneficio="cashback" onclick="togglePillBeneficio(this)">Cashback</span>
-                            <span class="pill" data-filter-beneficio="sin-cuota" onclick="togglePillBeneficio(this)">Sin Cuota</span>
-                            <span class="pill" data-filter-beneficio="tasa-baja" onclick="togglePillBeneficio(this)">Tasa Baja</span>
-                            <span class="pill" data-filter-beneficio="digital" onclick="togglePillBeneficio(this)">100% Digital</span>
+                        <div class="dropdown-wrapper">
+                            <select id="selectCredito" class="input-busqueda" onchange="actualizarSelectCredito(this)">
+                                <option value="todos">🟢 Todos</option>
+                                <option value="tarjeta">Tarjeta</option>
+                                <option value="consumo">Consumo</option>
+                                <option value="hipotecario">Hipotecario</option>
+                                <option value="vehiculo">Veh&iacute;culo</option>
+                                <option value="libranza">Libranza</option>
+                                <option value="microcredito">Microcr&eacute;dito</option>
+                            </select>
                         </div>
                     </div>
 
@@ -97,10 +90,7 @@
                     <div id="contadorResultados" style="margin-top:12px;font-size:0.78rem;color:#94a3b8;text-align:center"></div>
                 </div>
 
-                <div class="tarjeta-bonos">
-                    <h4>Bonos por buen h&aacute;bito</h4>
-                    <a href="#" class="btn-blanco">Conoce C&oacute;mo</a>
-                </div>
+
             </aside>
 
             <main class="columna-ofertas">
@@ -123,7 +113,7 @@
                             <span class="meta-texto">Hasta 36 cuotas · Tasa desde 1.8% MV · ID-BC01</span>
                             <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
                         </div>
-                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Bancolombia"></div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/bancolombia.jpeg') }}" alt="Bancolombia"></div>
                     </div>
                     <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
                          data-tipo="banco" data-credito="hipotecario" data-beneficio="tasa-baja"
@@ -136,7 +126,7 @@
                             <span class="meta-texto">Plazo hasta 240 meses · Tasa desde 1.1% MV · ID-BC02</span>
                             <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
                         </div>
-                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Bancolombia"></div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/bancolombia.jpeg') }}" alt="Bancolombia"></div>
                     </div>
                     <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
                          data-tipo="banco" data-credito="libranza" data-beneficio="tasa-baja"
@@ -149,7 +139,7 @@
                             <span class="meta-texto">Hasta 84 meses · Tasa desde 0.99% MV · ID-BC03</span>
                             <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
                         </div>
-                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_andino.png') }}" alt="Bancolombia"></div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/bancolombia.jpeg') }}" alt="Bancolombia"></div>
                     </div>
                 </div>
 
@@ -170,7 +160,7 @@
                             <span class="meta-texto">Hasta 60 meses · Tasa desde 1.5% MV · ID-DV01</span>
                             <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
                         </div>
-                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_vivacomercial.png') }}" alt="Davivienda"></div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/davivienda.png') }}" alt="Davivienda"></div>
                     </div>
                     <div class="tarjeta-oferta" onclick="abrirModal(this)" style="cursor:pointer"
                          data-tipo="banco" data-credito="vehiculo" data-beneficio="digital"
@@ -183,7 +173,7 @@
                             <span class="meta-texto">Hasta 72 meses · Tasa desde 1.3% MV · ID-DV02</span>
                             <div class="oferta-botones"><a href="#" class="btn-aplicar" onclick="return false">Ver detalles</a></div>
                         </div>
-                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/banco_vivacomercial.png') }}" alt="Davivienda"></div>
+                        <div class="oferta-logo"><img src="{{ url_for('static', filename='img/davivienda.png') }}" alt="Davivienda"></div>
                     </div>
                 </div>
 
@@ -410,25 +400,14 @@
         let filtroCredito   = 'todos';
         let filtroBeneficio = 'todos';
 
-        // ── PILLS TOGGLE ────────────────────────────────────
-        function togglePillTipo(el) {
-            document.querySelectorAll('#pillsTipo .pill').forEach(p => p.classList.remove('activa'));
-            el.classList.add('activa');
-            filtroTipo = el.getAttribute('data-filter-tipo');
+        // ── DROPDOWN SELECTS ────────────────────────────────────
+        function actualizarSelectTipo(el) {
+            filtroTipo = el.value;
             aplicarFiltros();
         }
 
-        function togglePillCredito(el) {
-            document.querySelectorAll('#pillsCredito .pill').forEach(p => p.classList.remove('activa'));
-            el.classList.add('activa');
-            filtroCredito = el.getAttribute('data-filter-credito');
-            aplicarFiltros();
-        }
-
-        function togglePillBeneficio(el) {
-            document.querySelectorAll('#pillsBeneficio .pill').forEach(p => p.classList.remove('activa'));
-            el.classList.add('activa');
-            filtroBeneficio = el.getAttribute('data-filter-beneficio');
+        function actualizarSelectCredito(el) {
+            filtroCredito = el.value;
             aplicarFiltros();
         }
 
@@ -490,12 +469,8 @@
         function limpiarFiltros() {
             filtroTipo = filtroCredito = filtroBeneficio = 'todos';
             document.getElementById('busquedaInput').value = '';
-            document.querySelectorAll('#pillsTipo .pill').forEach(p => p.classList.remove('activa'));
-            document.querySelectorAll('#pillsCredito .pill').forEach(p => p.classList.remove('activa'));
-            document.querySelectorAll('#pillsBeneficio .pill').forEach(p => p.classList.remove('activa'));
-            document.querySelector('#pillsTipo [data-filter-tipo="todos"]').classList.add('activa');
-            document.querySelector('#pillsCredito [data-filter-credito="todos"]').classList.add('activa');
-            document.querySelector('#pillsBeneficio [data-filter-beneficio="todos"]').classList.add('activa');
+            document.getElementById('selectTipo').value = 'todos';
+            document.getElementById('selectCredito').value = 'todos';
             aplicarFiltros();
         }
 
@@ -577,6 +552,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             simRecalcular();
             aplicarFiltros();
+        });
+    </script>
+                });
+
+                driverObj.drive();
+            });
         });
     </script>
 </body>

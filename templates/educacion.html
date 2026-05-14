@@ -270,9 +270,52 @@
         {
             titulo: "Fundamentos del Ahorro",
             nivel: "Básico", duracion: "45 min", lecciones: 4,
-            descripcion: "El ahorro es la base de toda salud financiera. En este curso aprenderás por qué ahorrar no es solo guardar dinero, sino construir libertad. Desarrollarás una metodología clara y automatizada para que el ahorro ocurra sin esfuerzo adicional.",
-            temas: ["¿Qué es realmente el ahorro y por qué importa?", "Crea tu fondo de emergencia (3 a 6 meses de gastos)", "La regla 50/30/20: distribuye tus ingresos con propósito", "Automatiza tu ahorro: tecnología a tu favor", "Cuentas de ahorro de alto rendimiento en Colombia"],
-            aprenderás: ["Calcular cuánto necesitas en tu fondo de emergencia", "Aplicar la regla 50/30/20 a tu salario", "Configurar débitos automáticos para ahorrar sin pensarlo", "Elegir la mejor cuenta de ahorros según tu perfil"]
+            descripcion: "El ahorro tradicional es un proceso pasivo y emocional. La <strong>Ingeniería de Finanzas Personales</strong> trata el flujo de caja como un sistema de entrada y salida de datos donde el objetivo es maximizar la retención de capital y minimizar el 'ruido' (gastos innecesarios). En este curso, transformaremos tu relación con el dinero de una gestión manual a un sistema en piloto automático.",
+            modulos: [
+                {
+                    titulo: "Módulo 1: Psicología del Capital y el 'Kernel' del Comportamiento",
+                    subtitulo: "Antes de configurar las herramientas, debemos debugear la mentalidad.",
+                    items: [
+                        "<strong>El Sesgo de Gratificación Inmediata:</strong> El concepto de Descuento Hiperbólico — por qué valoramos más un café de $5 hoy que la seguridad de $50,000 en 10 años.",
+                        "<strong>El 'Lifestyle Creep':</strong> La Regla de Contención — cada vez que tus ingresos suban un X%, tu ahorro debe absorber al menos el 70% de ese incremento."
+                    ]
+                },
+                {
+                    titulo: "Módulo 2: El Firewall Financiero (Fondo de Emergencia)",
+                    subtitulo: "Un sistema sin redundancia es un sistema destinado al fallo.",
+                    items: [
+                        "<strong>Tier 1 – El Amortiguador:</strong> $1,000–$2,000 USD para cubrir fallos menores sin tocar la tarjeta de crédito.",
+                        "<strong>Tier 2 – Fondo de Continuidad:</strong> 3–6 meses de gastos básicos para caídas de ingresos o cambios de carrera.",
+                        "<strong>Tier 3 – Fondo de Independencia:</strong> 12 meses de gastos. El poder de decir 'no' a proyectos mediocres.",
+                        "<strong>Ubicación del Capital:</strong> Liquidez vs. Rendimiento — cuenta de ahorros de alta rentabilidad (HISA) con disponibilidad 24/7."
+                    ]
+                },
+                {
+                    titulo: "Módulo 3: Algoritmos de Distribución (La Regla 50/30/20)",
+                    subtitulo: "Optimización de la lógica de gasto sobre el ingreso neto.",
+                    items: [
+                        "<strong>50% – Operaciones Básicas (Needs):</strong> Vivienda, alimentación, transporte, seguros.",
+                        "<strong>30% – Variables de Estilo de Vida (Wants):</strong> Suscripciones, ocio, hobbies no esenciales.",
+                        "<strong>20% – Acumulación y Deuda (Financial):</strong> Pago de deudas de alto interés, construcción del Fondo de Emergencia, inversiones iniciales."
+                    ]
+                },
+                {
+                    titulo: "Módulo 4: Automatización — El Ahorro en 'Autopiloto'",
+                    subtitulo: "Elimina el factor humano para garantizar la consistencia.",
+                    items: [
+                        "<strong>El Sistema Hub & Spoke:</strong> Cuenta Central (Hub) → Trigger automático el día 1 del mes → 20% a ahorro → resto a cuenta operativa.",
+                        "<strong>Reglas de Redondeo:</strong> Apps que redondean cada compra y ahorran la diferencia automáticamente.",
+                        "<strong>Auditoría de 'Gastos Vampiro':</strong> Revisión trimestral para cancelar suscripciones con bajo uso."
+                    ]
+                }
+            ],
+            proyecto: [
+                "Calcular tu costo de vida mensual real.",
+                "Configurar el Tier 1: mover tus primeros fondos al firewall financiero.",
+                "Activar el primer Trigger: programar la transferencia automática de 'págate a ti mismo primero'."
+            ],
+            temas: ["Psicología del capital y sesgos de gratificación", "Firewall financiero en tres capas (Tiers)", "Regla 50/30/20: motor de distribución de ingresos", "Sistema Hub & Spoke de automatización", "Auditoría de gastos vampiro y redondeo inteligente"],
+            aprenderás: ["Identificar y vencer el sesgo de gratificación inmediata", "Construir tu Fondo de Emergencia en 3 niveles (Tiers)", "Aplicar la regla 50/30/20 a tus ingresos netos", "Automatizar tu ahorro mensual sin esfuerzo manual", "Realizar auditorías trimestrales de gastos innecesarios"]
         },
         {
             titulo: "Presupuesto Mensual Inteligente",
@@ -342,31 +385,74 @@
     function abrirCurso(i) {
         const c = CURSOS[i];
         const nColor = c.nivel === 'Básico' ? '#16a34a' : c.nivel === 'Intermedio' ? '#2563eb' : '#7c3aed';
+
+        let contenidoCentral = '';
+
+        if (c.modulos) {
+            // Formato extendido con módulos detallados
+            const modulosHTML = c.modulos.map(m => `
+                <div class="edu-modulo">
+                    <div class="edu-modulo-header">
+                        <h4>${m.titulo}</h4>
+                        <p class="edu-modulo-subtitulo">${m.subtitulo}</p>
+                    </div>
+                    <ul class="edu-lista">
+                        ${m.items.map(item => `<li><span class="check">›</span>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+
+            const proyectoHTML = c.proyecto ? `
+                <div class="edu-proyecto">
+                    <h4>🚀 Proyecto Final: Tu Roadmap de Implementación</h4>
+                    <ol class="edu-lista">
+                        ${c.proyecto.map((p, n) => `<li><span class="num">${n+1}</span>${p}</li>`).join('')}
+                    </ol>
+                </div>
+            ` : '';
+
+            contenidoCentral = `
+                <div class="edu-modal-modulos">${modulosHTML}</div>
+                ${proyectoHTML}
+                <div class="edu-modal-aprendes">
+                    <h4>Lo que dominarás al terminar</h4>
+                    <ul class="edu-lista aprende">
+                        ${c.aprenderás.map(a => `<li><span class="check">✓</span>${a}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        } else {
+            // Formato estándar original
+            contenidoCentral = `
+                <div class="edu-modal-dos-col">
+                    <div>
+                        <h4>Contenido del curso</h4>
+                        <ol class="edu-lista">
+                            ${c.temas.map((t,n) => `<li><span class="num">${n+1}</span>${t}</li>`).join('')}
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Lo que aprenderás</h4>
+                        <ul class="edu-lista aprende">
+                            ${c.aprenderás.map(a => `<li><span class="check">✓</span>${a}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
         document.getElementById('cursoModalContenido').innerHTML = `
             <div class="edu-modal-header">
                 <span class="nivel-badge ${c.nivel.toLowerCase()}">${c.nivel}</span>
                 <h2>${c.titulo}</h2>
                 <div class="edu-modal-meta">
-                    <span>${c.lecciones} lecciones</span>
+                    <span>${c.lecciones} módulos</span>
                     <span>${c.duracion}</span>
                     <span>Gratuito</span>
                 </div>
             </div>
             <p class="edu-modal-desc">${c.descripcion}</p>
-            <div class="edu-modal-dos-col">
-                <div>
-                    <h4>Contenido del curso</h4>
-                    <ol class="edu-lista">
-                        ${c.temas.map((t,n) => `<li><span class="num">${n+1}</span>${t}</li>`).join('')}
-                    </ol>
-                </div>
-                <div>
-                    <h4>Lo que aprenderás</h4>
-                    <ul class="edu-lista aprende">
-                        ${c.aprenderás.map(a => `<li><span class="check">✓</span>${a}</li>`).join('')}
-                    </ul>
-                </div>
-            </div>
+            ${contenidoCentral}
             <a href="#" class="edu-modal-btn" onclick="return false">Comenzar curso</a>
         `;
         const modal = document.getElementById('cursoModal');

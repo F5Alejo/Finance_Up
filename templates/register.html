@@ -11,7 +11,17 @@
 <body>
     <div class="main-container">
         <!-- Logo Superior -->
-        <header class="logo-header">
+        <header class="logo-header" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 2rem;">
+            <a href="{{ url_for('inicio') }}" class="back-arrow" style="position: absolute; left: 0; text-decoration: none; color: #0b946d; display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.2rem; padding: 8px 16px; border-radius: 12px; transition: all 0.3s ease; background: rgba(11, 148, 109, 0.05);">
+                <span style="font-size: 1.8rem;">&larr;</span> 
+                <span>Inicio</span>
+            </a>
+            <style>
+                .back-arrow:hover {
+                    background: rgba(11, 148, 109, 0.1) !important;
+                    transform: translateX(-5px);
+                }
+            </style>
             <div class="logo-text">
                 <span class="logo-finance">Finance</span><span class="logo-up">Up<sup class="logo-arrow">↑</sup></span>
             </div>
